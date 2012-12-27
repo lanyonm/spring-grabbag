@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lanyonm.grabbag.persistence.IngredientMapper">
+
+	<cache />
+	
+	<select id="getAllIngredients" resultType="Ingredient">
+		SELECT
+			ID,
+			NAME,
+			DESCRIPTION
+		FROM INGREDIENTS
+	</select>
+
+	<select id="getIngredient" resultType="Ingredient" parameterType="int">
+		SELECT
+			ID,
+			NAME,
+			DESCRIPTION
+		FROM INGREDIENTS
+		WHERE ID = #{id}
+	</select>
+
+	<update id="updateIngredient" parameterType="Ingredient">
+		UPDATE INGREDIENTS SET
+			NAME = #{name},
+			DESCRIPTION = #{description}
+		WHERE ID = #{id}
+	</update>
+
+	<insert id="insertIngredient" parameterType="Ingredient">
+		INSERT INTO INGREDIENTS (NAME, DESCRIPTION)
+		VALUES (#{name}, #{description})
+	</insert>
+</mapper>

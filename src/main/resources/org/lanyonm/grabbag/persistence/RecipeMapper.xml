@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lanyonm.grabbag.persistence.RecipeMapper">
+
+	<cache />
+	
+	<select id="getAllRecipes" resultMap="recpieResultMap">
+		SELECT
+			r.ID as RECIPE_ID,
+			r.NAME as RECIPE_NAME,
+			r.DESCRIPTION as RECIPE_DESCRIPTION,
+			i.id as INGREDIENT_ID,
+			i.name as INGREDIENT_NAME,
+			i.description as INGREDIENT_DESCRIPTION
+		FROM RECIPES r
+			left outer join RECIPE_INGREDIENTS ri on ri.RECIPE_ID = r.ID
+			left outer join INGREDIENTS i on i.ID = ri.INGREDIENT_ID
+	</select>
+
+	<select id="getRecipe" resultMap="recpieResultMap" parameterType="int">
+		SELECT
+			r.ID as RECIPE_ID,
+			r.NAME as RECIPE_NAME,
+			r.DESCRIPTION as RECIPE_DESCRIPTION,
+			i.id as INGREDIENT_ID,
+			i.name as INGREDIENT_NAME,
+			i.description as INGREDIENT_DESCRIPTION,
+			ri.volume as INGREDIENT_VOLUME
+		FROM RECIPES r
+			left outer join RECIPE_INGREDIENTS ri on ri.RECIPE_ID = r.ID
+			left outer join INGREDIENTS i on i.ID = ri.INGREDIENT_ID
+		WHERE
+			r.id = #{id}
+	</select>
+
+	<resultMap id="recpieResultMap" type="Recipe">
+		<id property="id" column="RECIPE_ID" />
+		<result property="name" column="RECIPE_NAME" />
+		<result property="description" column="RECIPE_DESCRIPTION" />
+		<collection property="ingredients" ofType="RecipeIngredient">
+			<id property="id" column="INGREDIENT_ID" />
+			<result property="name" column="INGREDIENT_NAME" />
+			<result property="description" column="INGREDIENT_DESCRIPTION" />
+			<result property="volume" column="INGREDIENT_VOLUME" />
+		</collection>
+	</resultMap>
+</mapper>
