@@ -7,15 +7,15 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.lanyonm.grabbag.config.DataConfig;
 import org.lanyonm.grabbag.domain.Recipe;
-import org.lanyonm.grabbag.persistence.RecipeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={CookbookServiceImpl.class, RecipeMapper.class})
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={DataConfig.class, CookbookServiceImpl.class})
 public class CookbookServiceTest {
 
 	@Autowired

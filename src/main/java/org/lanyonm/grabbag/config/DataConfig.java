@@ -1,10 +1,8 @@
 package org.lanyonm.grabbag.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.lanyonm.grabbag.persistence.IngredientMapper;
-import org.lanyonm.grabbag.persistence.RecipeMapper;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.annotation.EnableMyBatisMapperScanner;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +13,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
 //@Profile({"dev", "test"})
+@EnableMyBatisMapperScanner(basePackages={"org.lanyonm.grabbag.persistence"})
 public class DataConfig {
 
 	@Bean
@@ -37,25 +36,6 @@ public class DataConfig {
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setTypeAliasesPackage("org.lanyonm.grabbag.domain");
 		return sessionFactory.getObject();
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private MapperFactoryBean getMapperFactoryBean(Class c) throws Exception {
-		MapperFactoryBean bean = new MapperFactoryBean();
-		bean.setSqlSessionFactory(sqlSessionFactory());
-		bean.setMapperInterface(c);
-		bean.afterPropertiesSet();
-		return bean;
-	}
-
-	@Bean
-	public RecipeMapper recipeMapper() throws Exception {
-		return (RecipeMapper) getMapperFactoryBean(RecipeMapper.class).getObject();
-	}
-
-	@Bean
-	public IngredientMapper ingredientMapper() throws Exception {
-		return (IngredientMapper) getMapperFactoryBean(IngredientMapper.class).getObject();
 	}
 
 }
