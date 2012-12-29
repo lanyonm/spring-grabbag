@@ -1,5 +1,5 @@
 -- add a user
-INSERT INTO USER (FIRST_NAME, LAST_NAME, EMAIL) values ('Mike', 'L.', 'lanyonm@gmail.com');
+INSERT INTO USER (ID, FIRST_NAME, LAST_NAME, EMAIL) values ('Mike', 'L.', 'lanyonm@gmail.com');
 
 -- add some ingredients
 INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (1, 'milk', 'it comes from cows');

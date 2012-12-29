@@ -4,21 +4,8 @@
 <mapper namespace="org.lanyonm.grabbag.persistence.RecipeMapper">
 
 	<cache />
-	
-	<select id="getAllRecipes" resultMap="recpieResultMap">
-		SELECT
-			r.ID as RECIPE_ID,
-			r.NAME as RECIPE_NAME,
-			r.DESCRIPTION as RECIPE_DESCRIPTION,
-			i.id as INGREDIENT_ID,
-			i.name as INGREDIENT_NAME,
-			i.description as INGREDIENT_DESCRIPTION
-		FROM RECIPES r
-			left outer join RECIPE_INGREDIENTS ri on ri.RECIPE_ID = r.ID
-			left outer join INGREDIENTS i on i.ID = ri.INGREDIENT_ID
-	</select>
 
-	<select id="getRecipe" resultMap="recpieResultMap" parameterType="int">
+	<sql id="recipeDomainSql">
 		SELECT
 			r.ID as RECIPE_ID,
 			r.NAME as RECIPE_NAME,
@@ -30,9 +17,7 @@
 		FROM RECIPES r
 			left outer join RECIPE_INGREDIENTS ri on ri.RECIPE_ID = r.ID
 			left outer join INGREDIENTS i on i.ID = ri.INGREDIENT_ID
-		WHERE
-			r.id = #{id}
-	</select>
+	</sql>
 
 	<resultMap id="recpieResultMap" type="Recipe">
 		<id property="id" column="RECIPE_ID" />
@@ -45,4 +30,15 @@
 			<result property="volume" column="INGREDIENT_VOLUME" />
 		</collection>
 	</resultMap>
+
+	<select id="getAllRecipes" resultMap="recpieResultMap">
+		<include refid="recipeDomainSql"/>
+	</select>
+
+	<select id="getRecipe" resultMap="recpieResultMap" parameterType="int">
+		<include refid="recipeDomainSql"/>
+		WHERE
+			r.id = #{id}
+	</select>
+
 </mapper>
