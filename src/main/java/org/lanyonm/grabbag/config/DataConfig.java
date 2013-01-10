@@ -1,5 +1,7 @@
 package org.lanyonm.grabbag.config;
 
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.annotation.EnableMyBatisMapperScanner;
@@ -17,7 +19,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 public class DataConfig {
 
 	@Bean
-	public javax.sql.DataSource dataSource() {
+	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
 				.addScript("database/schema.sql")
