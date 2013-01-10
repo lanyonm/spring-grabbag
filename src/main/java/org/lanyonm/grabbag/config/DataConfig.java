@@ -4,7 +4,7 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.annotation.EnableMyBatisMapperScanner;
+import org.mybatis.spring.annotation.EnableMapperScanning;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
 //@Profile({"dev", "test"})
-@EnableMyBatisMapperScanner(basePackages={"org.lanyonm.grabbag.persistence"})
+@EnableMapperScanning("org.lanyonm.grabbag.persistence")
 public class DataConfig {
 
 	@Bean
