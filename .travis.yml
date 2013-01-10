@@ -4,6 +4,8 @@ jdk:
   - openjdk7
 
 before_install:
+  - cd ..
   - git clone git://github.com/LanyonM/mybatis-spring.git
   - cd mybatis-spring
   - mvn install
+  - cd ../spring-grabbag
