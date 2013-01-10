@@ -15,5 +15,11 @@ If you find yourself needing to exclude tests, you can simply add ``-Dmaven.test
 
 == TODO
 
+* Clean up Command Object handling and add validation
+* i18n messages w/locale detection
+* example datetime command object conversion
 * Add view-layer framework
-
+* MyBatis key generation (or H2 key generation)
+* MyBatis transaction management
+* Expose basic JMX
+* 
