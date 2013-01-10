@@ -1,4 +1,4 @@
-# Intro
+# spring-grabbag [![Build Status](https://travis-ci.org/LanyonM/spring-grabbag.png?branch=master)](https://travis-ci.org/LanyonM/spring-grabbag)
 This project is meant to be a fun sampling of what you can do with Spring 3.2.  I have been a fan of Spring's Java Config since it was pre-release, and therefore this project attempts to do everything without xml config.
 
 # Running
