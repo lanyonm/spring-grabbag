@@ -27,7 +27,7 @@ public class UsersDaoImpl implements UsersDao {
 		List<Map<String, Object>> ret = template.queryForList("select * from user;");
 		List<User> users = new ArrayList<User>();
 		for (Map<String, Object> row : ret) {
-			users.add(new User(row.get("FIRST_NAME").toString(), row.get("LAST_NAME").toString(), row.get("EMAIL").toString()));
+			users.add(new User((Long) row.get("ID"), row.get("FIRST_NAME").toString(), row.get("LAST_NAME").toString(), row.get("EMAIL").toString()));
 		}
 		return users;
 	}

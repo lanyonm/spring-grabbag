@@ -52,7 +52,8 @@ public class UsersDaoTest {
 //		List<Map<String, Object>> users = template.queryForList("select * from user;");
 		List<User> users = usersDao.getUsers();
 		assertNotNull(users);
-		assertEquals("number of users", 1, users.size());
-		
+		assertEquals("number of users", 2, users.size());
+		assertEquals("second user's id should be 2", 2, users.get(1).getId());
+		assertEquals("first user's first name should be Mike", "Mike", users.get(0).getFirstName());
 	}
 }

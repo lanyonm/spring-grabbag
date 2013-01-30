@@ -1,21 +1,30 @@
 package org.lanyonm.grabbag.domain;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author mlanyon
  */
-public class User {
+public class User implements Serializable {
 
+	private long id;
 	private String firstName;
 	private String lastName;
 	private String email;
+	private static final long serialVersionUID = 1L;
 
 	public User() { }
 
-	public User(String firstName, String lastName, String email) {
+	public User(long id, String firstName, String lastName, String email) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public String getFirstName() {
