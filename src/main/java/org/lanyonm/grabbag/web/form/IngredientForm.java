@@ -22,7 +22,7 @@ public class IngredientForm {
 	}
 
 	public String toString() {
-		return new StringBuilder("web.form.Ingredient: name=\"").append(this.name)
+		return new StringBuilder("web.form.IngredientForm: name=\"").append(this.name)
 				.append("\", description=\"").append(this.description)
 				.append("\"").toString();
 	}
