@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,7 +13,6 @@ import org.lanyonm.grabbag.domain.Ingredient;
 import org.lanyonm.grabbag.persistence.IngredientMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -70,7 +68,6 @@ public class IngredientMapperTest {
 	 * @see IngredientMapper#insertIngredient(Ingredient)
 	 */
 	@Test
-	@Ignore("need to fix key generation")
 	public void testInsertIngredientSuccess() {
 		Ingredient ingredient = new Ingredient();
 		ingredient.setName("testIngredient");
@@ -79,17 +76,6 @@ public class IngredientMapperTest {
 		List<Ingredient> ingredients = ingredientMapper.getAllIngredients();
 		assertEquals(11, ingredients.size());
 		assertEquals("testIngredient", ingredientMapper.getIngredient(11).getName());
-	}
-
-	/**
-	 * @see IngredientMapper#insertIngredient(Ingredient)
-	 */
-	@Test(expected = DataIntegrityViolationException.class)
-	public void testInsertIngredientDuplicateId() {
-		Ingredient ingredient = new Ingredient();
-		ingredient.setName("margarine");
-		ingredient.setDescription("isn't it true?!?");
-		ingredientMapper.insertIngredient(ingredient);
 	}
 
 }

@@ -1,7 +1,10 @@
 package org.lanyonm.grabbag.web.controller;
 
+import java.util.List;
+
 import org.lanyonm.grabbag.web.form.IngredientForm;
 import org.lanyonm.grabbag.domain.Ingredient;
+import org.lanyonm.grabbag.domain.Recipe;
 import org.lanyonm.grabbag.service.CookbookService;
 
 import org.slf4j.Logger;
@@ -49,7 +52,10 @@ public class CookbookController {
 		Ingredient ingredient = cookbookService.getIngredient(id);
 		log.debug("when searching for ingredient " + id + ", we found " + ingredient);
 		if (ingredient == null && id > 0) {
+			model.addAttribute("error", "Something nefarious was attempted.");
 			return "redirect:/cookbook/ingredients";
+		} else if (ingredient == null && id == 0) {
+			ingredient = new Ingredient();
 		}
 		model.addAttribute("ingredient", ingredient);
 		return "cookbook/ingredientAddEdit";
@@ -70,6 +76,28 @@ public class CookbookController {
 				ingredient.setName(ingredientForm.getName());
 				ingredient.setDescription(ingredientForm.getDescription());
 				cookbookService.saveIngredient(ingredient);
+			} else {
+				model.addAttribute("error", "Something nefarious was attempted.");
+			}
+		}
+		return "redirect:/cookbook/ingredients";
+	}
+
+	@RequestMapping(value = "/ingredient/{id}/delete", method = RequestMethod.GET)
+	public String ingredientDelete(@PathVariable("id") final int id, Model model) {
+		Ingredient ingredient = cookbookService.getIngredient(id);
+		if (!cookbookService.getRecipesWithIngredient(ingredient).isEmpty()) {
+			List<Recipe> recipes = cookbookService.getRecipesWithIngredient(ingredient);
+			StringBuilder builder = new StringBuilder("Couldn't delete the ingredient. ");
+			for (Recipe recipe : recipes) {
+				builder.append("It is used in " + recipe.getName() + ". ");
+			}
+			model.addAttribute("error", builder.toString());
+		} else {
+			if (cookbookService.deleteIngredient(ingredient)) {
+				model.addAttribute("message", "You successfully deleted " + ingredient.getName() + "!");
+			} else {
+				model.addAttribute("error", "There was an error deleteing the ingredient.");
 			}
 		}
 		return "redirect:/cookbook/ingredients";

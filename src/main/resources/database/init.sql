@@ -3,16 +3,16 @@ INSERT INTO USER (FIRST_NAME, LAST_NAME, EMAIL) values ('Mike', 'L.', 'lanyonm@g
 INSERT INTO USER (FIRST_NAME, LAST_NAME, EMAIL) values ('Matt', 'R.', 'test@test.com');
 
 -- add some ingredients
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (1, 'milk', 'it comes from cows');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (2, 'butter', 'the real deal');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (3, 'margarine', 'can''t believe it''s not butter!');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (4, 'sugar', 'real, sweet, sugar');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (5, 'powdered sugar', 'looks like anthrax, but is much tastier');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (6, 'flour', 'white and powdery');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (7, 'cream cheese', 'what you put on a bagel');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (8, 'Cool Whip', 'imitation whipped cream');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (9, 'instant pudding', 'generic brand 5-minute pudding');
-INSERT INTO INGREDIENTS (ID, NAME, DESCRIPTION) values (10, 'pistachios', 'the little green nuts');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('milk', 'it comes from cows');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('butter', 'the real deal');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('margarine', 'can''t believe it''s not butter!');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('sugar', 'real, sweet, sugar');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('powdered sugar', 'looks like anthrax, but is much tastier');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('flour', 'white and powdery');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('cream cheese', 'what you put on a bagel');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('Cool Whip', 'imitation whipped cream');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('instant pudding', 'generic brand 5-minute pudding');
+INSERT INTO INGREDIENTS (NAME, DESCRIPTION) values ('pistachios', 'the little green nuts');
 
 -- add some recipe types
 INSERT INTO RECIPE_TYPES (ID, NAME) values (1, 'Entree');

@@ -15,5 +15,6 @@ public interface IngredientMapper {
 	public Ingredient getIngredient(int id);
 	public int updateIngredient(Ingredient ingredient);
 	public int insertIngredient(Ingredient ingredient);
+	public Integer deleteIngredient(Ingredient ingredient);
 
 }

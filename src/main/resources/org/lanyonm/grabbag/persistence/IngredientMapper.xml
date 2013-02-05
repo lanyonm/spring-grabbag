@@ -32,5 +32,11 @@
 	<insert id="insertIngredient" parameterType="Ingredient">
 		INSERT INTO INGREDIENTS (NAME, DESCRIPTION)
 		VALUES (#{name}, #{description})
+		<selectKey>SELECT @@IDENTITY as id</selectKey>
 	</insert>
+
+	<delete id="deleteIngredient" parameterType="Ingredient">
+		DELETE FROM INGREDIENTS WHERE id = #{id}
+	</delete>
+
 </mapper>

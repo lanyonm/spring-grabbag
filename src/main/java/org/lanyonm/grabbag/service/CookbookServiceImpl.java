@@ -30,7 +30,7 @@ public class CookbookServiceImpl implements CookbookService {
 		return 0;
 	}
 
-	public boolean deleteRecpie(Recipe recipe) {
+	public boolean deleteRecipe(Recipe recipe) {
 		// TODO Auto-generated method stub
 		return false;
 	}
