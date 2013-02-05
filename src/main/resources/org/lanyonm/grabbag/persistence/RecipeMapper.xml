@@ -41,4 +41,47 @@
 			r.id = #{id}
 	</select>
 
+	<select id="getRecipeWithIngredient" resultMap="recpieResultMap" parameterType="Ingredient">
+		<include refid="recipeDomainSql"/>
+		WHERE
+			i.id = #{id}
+	</select>
+
+	<update id="updateRecipe" parameterType="Recipe">
+		UPDATE RECIPES SET
+			NAME = #{name},
+			DESCRIPTION = #{description}
+		WHERE ID = #{id}
+	</update>
+
+	<update id="updateRecipeIngredient" parameterType="HashMap">
+		UPDATE RECIPE_INGREDIENTS SET
+			VALUME = ${volume}
+		WHERE recipeId = ${recipeId} AND ingredientId = ${ingredientId}
+	</update>
+
+	<insert id="insertRecipe">
+		INSERT INTO RECIPES (NAME, DESCRIPTION)
+		VALUES (#{name}, #{description})
+		<selectKey>
+			SELECT @@IDENTITY as id
+		</selectKey>
+	</insert>
+
+	<insert id="insertRecipeIngredient" parameterType="HashMap">
+		INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_ID, VOLUME)
+		VALUES (#{recipeId}, #{ingredientId}, #{volume})
+	</insert>
+
+	<delete id="deleteRecipe" parameterType="Recipe">
+		DELETE FROM RECIPES WHERE id = #{id}
+	</delete>
+
+	<delete id="deleteRecipeIngredient" parameterType="HashMap">
+		DELETE FROM RECIPE_INGREDIENTS
+		WHERE
+			recipeId = ${recipeId} AND
+			ingredientId = ${ingredientId}
+	</delete>
+
 </mapper>

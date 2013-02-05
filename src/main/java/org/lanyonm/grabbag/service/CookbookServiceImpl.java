@@ -26,13 +26,17 @@ public class CookbookServiceImpl implements CookbookService {
 	}
 
 	public int saveRecipe(Recipe recipe) {
-		// TODO Auto-generated method stub
-		return 0;
+		int ret = 0;
+		if (recipe.getId() > 0) {
+			ret = recipeMapper.updateRecipe(recipe);
+		} else {
+			ret = recipeMapper.insertRecipe(recipe);
+		}
+		return ret;
 	}
 
 	public boolean deleteRecipe(Recipe recipe) {
-		// TODO Auto-generated method stub
-		return false;
+		return recipeMapper.deleteRecipe(recipe) > 0;
 	}
 
 	public List<Ingredient> getAllIngredients() {
@@ -46,17 +50,23 @@ public class CookbookServiceImpl implements CookbookService {
 	public int saveIngredient(Ingredient ingredient) {
 		int ret = 0;
 		if (ingredient.getId() > 0) {
-			ingredientMapper.updateIngredient(ingredient);
+			ret = ingredientMapper.updateIngredient(ingredient);
 		} else {
-			ingredientMapper.insertIngredient(ingredient);
+			ret = ingredientMapper.insertIngredient(ingredient);
 		}
-		
 		return ret;
 	}
 
 	public boolean deleteIngredient(Ingredient ingredient) {
-		// TODO Auto-generated method stub
-		return false;
+		if (!getRecipesWithIngredient(ingredient).isEmpty()) {
+			return false;
+		} else {
+			return ingredientMapper.deleteIngredient(ingredient) > 0;
+		}
+	}
+
+	public List<Recipe> getRecipesWithIngredient(Ingredient ingredient) {
+		return recipeMapper.getRecipeWithIngredient(ingredient);
 	}
 
 }

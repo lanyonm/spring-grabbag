@@ -3,6 +3,7 @@ package org.lanyonm.grabbag.web.controller;
 import java.util.List;
 
 import org.lanyonm.grabbag.web.form.IngredientForm;
+import org.lanyonm.grabbag.web.form.RecipeForm;
 import org.lanyonm.grabbag.domain.Ingredient;
 import org.lanyonm.grabbag.domain.Recipe;
 import org.lanyonm.grabbag.service.CookbookService;
@@ -35,10 +36,55 @@ public class CookbookController {
 	}
 
 	@RequestMapping(value = "/recipe/{id}", method = RequestMethod.GET)
-	public String recipe(@PathVariable("id") int id, Model model) {
+	public String recipe(@PathVariable("id") final int id, Model model) {
 		log.debug("getting recipe for id " + id);
 		model.addAttribute("recipe", cookbookService.getRecipe(id));
 		return "cookbook/recipe";
+	}
+
+	@RequestMapping(value = "/recipe/{id}/edit", method = RequestMethod.GET)
+	public String recipeAddEditShow(@PathVariable("id") final int id, Model model) {
+		Recipe recipe = cookbookService.getRecipe(id);
+		if (recipe == null && id > 0) {
+			model.addAttribute("error", "Something nefarious was attempted.");
+			return "redirect:/cookbook/";
+		} else if (recipe == null && id == 0) {
+			recipe = new Recipe();
+		}
+		model.addAttribute("recipe", recipe);
+		model.addAttribute("allIngredients", cookbookService.getAllIngredients());
+		return "cookbook/recipeAddEdit";
+	}
+
+	@RequestMapping(value = "/recipe/{id}/edit", method = RequestMethod.POST)
+	public String recipeAddEditSave(@PathVariable("id") final int id, Model model, @ModelAttribute("recipe") RecipeForm recipeForm, BindingResult result) {
+		Recipe recipe = new Recipe();
+		if (id == 0) {
+			recipe.setName(recipeForm.getName());
+			recipe.setDescription(recipeForm.getDescription());
+			cookbookService.saveRecipe(recipe);
+		} else {
+			recipe = cookbookService.getRecipe(id);
+			if (recipe != null) {
+				recipe.setName(recipeForm.getName());
+				recipe.setDescription(recipeForm.getDescription());
+				cookbookService.saveRecipe(recipe);
+			} else {
+				model.addAttribute("error", "Something nefarious was attempted.");
+			}
+		}
+		return "redirect:/cookbook/";
+	}
+
+	@RequestMapping(value = "/recipe/{id}/delete", method = RequestMethod.GET)
+	public String deleteRecipe(@PathVariable("id") final int id, Model model) {
+		Recipe recipe = cookbookService.getRecipe(id);
+		if (cookbookService.deleteRecipe(recipe)) {
+			model.addAttribute("message", "You successfully deleted " + recipe.getName() + "!");
+		} else {
+			model.addAttribute("error", "There was an error deleteing the recipe.");
+		}
+		return "redirect:/cookbook/";
 	}
 
 	@RequestMapping("/ingredients")

@@ -1,7 +1,9 @@
 package org.lanyonm.grabbag.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.lanyonm.grabbag.domain.Ingredient;
 import org.lanyonm.grabbag.domain.Recipe;
 
 /**
@@ -13,6 +15,11 @@ public interface RecipeMapper {
 
 	public List<Recipe> getAllRecipes();
 	public Recipe getRecipe(int id);
+	public List<Recipe> getRecipeWithIngredient(Ingredient ingredient);
 	public int updateRecipe(Recipe recipe);
+	public int updateRecipeIngredient(HashMap<String, String> params);
 	public int insertRecipe(Recipe recipe);
+	public int insertRecipeIngredient(HashMap<String, String> params);
+	public Integer deleteRecipe(Recipe recipe);
+	public boolean deleteRecipeIngredient(HashMap<String, String> params);
 }
