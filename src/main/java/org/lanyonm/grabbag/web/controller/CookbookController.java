@@ -37,8 +37,12 @@ public class CookbookController {
 
 	@RequestMapping(value = "/recipe/{id}", method = RequestMethod.GET)
 	public String recipe(@PathVariable("id") final int id, Model model) {
-		log.debug("getting recipe for id " + id);
-		model.addAttribute("recipe", cookbookService.getRecipe(id));
+		Recipe recipe = cookbookService.getRecipe(id);
+		if (recipe == null) {
+			model.addAttribute("error", "Something nefarious was attempted.");
+			return "redirect:/cookbook/";
+		}
+		model.addAttribute("recipe", recipe);
 		return "cookbook/recipe";
 	}
 
