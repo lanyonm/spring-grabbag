@@ -9,12 +9,22 @@ public interface CookbookService {
 
 	public List<Recipe> getAllRecipes();
 	public Recipe getRecipe(int id);
-	public int saveRecipe(Recipe recipe);
+	/**
+	 * 
+	 * @param recipe
+	 * @return Was the {@link Recipe} successfully saved?
+	 */
+	public boolean saveRecipe(Recipe recipe);
 	public boolean deleteRecipe(Recipe recipe);
 
 	public List<Ingredient> getAllIngredients();
 	public Ingredient getIngredient(int id);
-	public int saveIngredient(Ingredient ingredient);
+	/**
+	 * 
+	 * @param ingredient
+	 * @return Was the {@link Ingredient} successfully saved?
+	 */
+	public boolean saveIngredient(Ingredient ingredient);
 	public boolean deleteIngredient(Ingredient ingredient);
 	
 	public List<Recipe> getRecipesWithIngredient(Ingredient ingredient);

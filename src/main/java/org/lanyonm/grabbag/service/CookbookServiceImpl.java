@@ -25,14 +25,14 @@ public class CookbookServiceImpl implements CookbookService {
 		return recipeMapper.getRecipe(id);
 	}
 
-	public int saveRecipe(Recipe recipe) {
+	public boolean saveRecipe(Recipe recipe) {
 		int ret = 0;
 		if (recipe.getId() > 0) {
 			ret = recipeMapper.updateRecipe(recipe);
 		} else {
 			ret = recipeMapper.insertRecipe(recipe);
 		}
-		return ret;
+		return ret == 1;
 	}
 
 	public boolean deleteRecipe(Recipe recipe) {
@@ -47,14 +47,14 @@ public class CookbookServiceImpl implements CookbookService {
 		return ingredientMapper.getIngredient(id);
 	}
 
-	public int saveIngredient(Ingredient ingredient) {
+	public boolean saveIngredient(Ingredient ingredient) {
 		int ret = 0;
 		if (ingredient.getId() > 0) {
 			ret = ingredientMapper.updateIngredient(ingredient);
 		} else {
 			ret = ingredientMapper.insertIngredient(ingredient);
 		}
-		return ret;
+		return ret == 1;
 	}
 
 	public boolean deleteIngredient(Ingredient ingredient) {
