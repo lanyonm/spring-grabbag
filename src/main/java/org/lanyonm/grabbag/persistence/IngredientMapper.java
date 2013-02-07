@@ -14,6 +14,9 @@ public interface IngredientMapper {
 	public List<Ingredient> getAllIngredients();
 	public Ingredient getIngredient(int id);
 	public int updateIngredient(Ingredient ingredient);
+	/**
+	 * returns the number or rows affected
+	 */
 	public int insertIngredient(Ingredient ingredient);
 	public Integer deleteIngredient(Ingredient ingredient);
 
