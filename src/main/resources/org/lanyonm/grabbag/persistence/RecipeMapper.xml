@@ -60,12 +60,9 @@
 		WHERE recipeId = ${recipeId} AND ingredientId = ${ingredientId}
 	</update>
 
-	<insert id="insertRecipe">
+	<insert id="insertRecipe" parameterType="Recipe" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO RECIPES (NAME, DESCRIPTION)
 		VALUES (#{name}, #{description})
-		<selectKey>
-			SELECT @@IDENTITY as id
-		</selectKey>
 	</insert>
 
 	<insert id="insertRecipeIngredient" parameterType="HashMap">

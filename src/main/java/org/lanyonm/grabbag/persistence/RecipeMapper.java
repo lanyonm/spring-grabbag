@@ -17,9 +17,15 @@ public interface RecipeMapper {
 	public Recipe getRecipe(int id);
 	public List<Recipe> getRecipeWithIngredient(Ingredient ingredient);
 	public int updateRecipe(Recipe recipe);
-	public int updateRecipeIngredient(HashMap<String, String> params);
+	public int updateRecipeIngredient(HashMap<String, Object> params);
+	/**
+	 * This method will update the recipe's id with the generated id.
+	 * 
+	 * @param recipe
+	 * @return the number of affected rows
+	 */
 	public int insertRecipe(Recipe recipe);
-	public int insertRecipeIngredient(HashMap<String, String> params);
-	public Integer deleteRecipe(Recipe recipe);
-	public boolean deleteRecipeIngredient(HashMap<String, String> params);
+	public int insertRecipeIngredient(HashMap<String, Object> params);
+	public int deleteRecipe(Recipe recipe);
+	public boolean deleteRecipeIngredient(HashMap<String, Integer> params);
 }
