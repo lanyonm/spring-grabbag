@@ -15,8 +15,6 @@ If you find yourself needing to exclude tests, you can simply add ``-Dmaven.test
 
 # TODO
 
-* Clean up Command Object handling
-* Add domain object handling
 * i18n messages w/locale detection
 * example datetime command object conversion
 * Add view-layer framework

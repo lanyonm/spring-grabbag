@@ -1,7 +1,10 @@
 package org.lanyonm.grabbag.web.form;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class IngredientForm {
 
+	@NotEmpty
 	private String name;
 	private String description;
 

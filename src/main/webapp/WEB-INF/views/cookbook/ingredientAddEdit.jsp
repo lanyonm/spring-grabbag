@@ -2,12 +2,12 @@
 	<title>DB</title>
 </head>
 <body>
-	<h1>${ ingredient.id == 0 ? 'Add' : 'Edit' } Ingredient</h1>
+	<h1>${ isNew ? 'Add' : 'Edit' } Ingredient</h1>
 	<form:form commandName="ingredient">
 		<table>
 			<tr>
 				<td>Name:</td>
-				<td><form:input path="name" /></td>
+				<td><form:input path="name" /> <span style="color:red;"><form:errors path="name" /></span></td>
 			</tr>
 			<tr>
 				<td>Description:</td>

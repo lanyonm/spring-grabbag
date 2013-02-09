@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,8 @@ public class CookbookController {
 
 	@Autowired
 	private CookbookService cookbookService;
+	@Autowired
+	private Validator validator;
 
 	private static final Logger log = LoggerFactory.getLogger(CookbookController.class);
 
@@ -108,13 +111,19 @@ public class CookbookController {
 			ingredient = new Ingredient();
 		}
 		model.addAttribute("ingredient", ingredient);
+		model.addAttribute("isNew", id == 0);
 		return "cookbook/ingredientAddEdit";
 	}
 
 	@RequestMapping(value = "/ingredient/{id}/edit", method = RequestMethod.POST)
 	public String ingredientAddEditSave(@PathVariable("id") final int id, Model model, @ModelAttribute("ingredient") IngredientForm ingredientForm, BindingResult result) {
-		log.debug("ingredient form posted is: " + ingredientForm);
-		// do some validation
+		model.addAttribute("ingredient", ingredientForm);
+		model.addAttribute("isNew", id == 0);
+		validator.validate(ingredientForm, result);
+		if (result.hasErrors()) {
+			return "cookbook/ingredientAddEdit";
+		}
+
 		Ingredient ingredient = new Ingredient();
 		if (id == 0) {
 			ingredient.setName(ingredientForm.getName());
