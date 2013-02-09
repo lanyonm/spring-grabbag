@@ -2,7 +2,7 @@
 This project is meant to be a fun sampling of what you can do with Spring 3.2.  I have been a fan of Spring's Java Config since it was pre-release, and therefore this project attempts to do everything without xml config.
 
 # Running
-This project uses maven, and therefore you should not need to have anything aside from Java 7 and Maven 3 installed.
+This project uses maven, and therefore you should not need to have anything aside from Java 6 and Maven 3 installed.
 
     mvn package tomcat7:run
 
