@@ -13,12 +13,18 @@ Because this project uses maven, tests can be run quite simply:
 
 If you find yourself needing to exclude tests, you can simply add ``-Dmaven.test.skip=true``.
 
+# ORM
+This project currently uses straight JDBC and MyBatis for different repository classes.
+
 # TODO
 
 * i18n messages w/locale detection
 * example datetime command object conversion
 * Add view-layer framework
 * MyBatis transaction management
-* Expose basic JMX
+* Expose MyBatis Cache Stats via JMX
 * Add sample JNDI configuration
-* 
+* Quartz Scheduling
+* Spring Security
+* Spring Integration with Mongo
+
