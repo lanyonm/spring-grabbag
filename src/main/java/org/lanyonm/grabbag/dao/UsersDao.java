@@ -8,7 +8,7 @@ public interface UsersDao {
 
 	/**
 	 * 
-	 * @return
+	 * @return List<User>
 	 */
 	public List<User> getUsers();
 
