@@ -118,9 +118,9 @@ public class CookbookController {
 	@RequestMapping(value = "/ingredient/{id}/edit", method = RequestMethod.POST)
 	public String ingredientAddEditSave(@PathVariable("id") final int id, Model model, @ModelAttribute("ingredient") IngredientForm ingredientForm, BindingResult result) {
 		model.addAttribute("ingredient", ingredientForm);
-		model.addAttribute("isNew", id == 0);
 		validator.validate(ingredientForm, result);
 		if (result.hasErrors()) {
+			model.addAttribute("isNew", id == 0);
 			return "cookbook/ingredientAddEdit";
 		}
 
