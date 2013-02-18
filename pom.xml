@@ -157,6 +157,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
+					<charset>UTF-8</charset>
 					<port>8080</port>
 					<path>/${project.build.finalName}</path>
 					<systemProperties>
