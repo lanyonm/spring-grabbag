@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/includes/header.jspf"%>
+<spring:message code="ingredient.name" var="name" />
 	<title>DB</title>
 </head>
 <body>
@@ -6,7 +7,7 @@
 	<form:form commandName="ingredient">
 		<table>
 			<tr>
-				<td>Name:</td>
+				<td>${name}:</td>
 				<td><form:input path="name" /> <span style="color:red;"><form:errors path="name" /></span></td>
 			</tr>
 			<tr>
