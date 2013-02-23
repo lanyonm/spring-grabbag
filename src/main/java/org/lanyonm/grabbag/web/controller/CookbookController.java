@@ -55,7 +55,7 @@ public class CookbookController {
 		if (recipe == null && id > 0) {
 			model.addAttribute("error", "Something nefarious was attempted.");
 			return "redirect:/cookbook/";
-		} else if (recipe == null && id == 0) {
+		} else if (id == 0) {
 			recipe = new Recipe();
 		}
 		model.addAttribute("recipe", recipe);
