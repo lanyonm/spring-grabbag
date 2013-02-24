@@ -1,0 +1,8 @@
+org.lanyonm.grabbag.config
+org.lanyonm.grabbag.dao
+org.lanyonm.grabbag.dao.jdbc
+org.lanyonm.grabbag.domain
+org.lanyonm.grabbag.persistence
+org.lanyonm.grabbag.service
+org.lanyonm.grabbag.web.controller
+org.lanyonm.grabbag.web.form

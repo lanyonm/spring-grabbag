@@ -1,0 +1,109 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package org.lanyonm.grabbag.config;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import javax.sql.DataSource;<a name="line.3"></a>
+<FONT color="green">004</FONT>    <a name="line.4"></a>
+<FONT color="green">005</FONT>    import org.apache.ibatis.session.SqlSessionFactory;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.mybatis.spring.SqlSessionFactoryBean;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import org.mybatis.spring.annotation.EnableMapperScanning;<a name="line.7"></a>
+<FONT color="green">008</FONT>    <a name="line.8"></a>
+<FONT color="green">009</FONT>    import org.springframework.context.annotation.Bean;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import org.springframework.context.annotation.Configuration;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import org.springframework.jdbc.datasource.DataSourceTransactionManager;<a name="line.11"></a>
+<FONT color="green">012</FONT>    //import org.springframework.context.annotation.Profile;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;<a name="line.13"></a>
+<FONT color="green">014</FONT>    import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;<a name="line.14"></a>
+<FONT color="green">015</FONT>    <a name="line.15"></a>
+<FONT color="green">016</FONT>    @Configuration<a name="line.16"></a>
+<FONT color="green">017</FONT>    //@Profile({"dev", "test"})<a name="line.17"></a>
+<FONT color="green">018</FONT>    @EnableMapperScanning("org.lanyonm.grabbag.persistence")<a name="line.18"></a>
+<FONT color="green">019</FONT>    public class DataConfig {<a name="line.19"></a>
+<FONT color="green">020</FONT>    <a name="line.20"></a>
+<FONT color="green">021</FONT>            @Bean<a name="line.21"></a>
+<FONT color="green">022</FONT>            public DataSource dataSource() {<a name="line.22"></a>
+<FONT color="green">023</FONT>                    return new EmbeddedDatabaseBuilder()<a name="line.23"></a>
+<FONT color="green">024</FONT>                                    .setType(EmbeddedDatabaseType.H2)<a name="line.24"></a>
+<FONT color="green">025</FONT>                                    .addScript("database/schema.sql")<a name="line.25"></a>
+<FONT color="green">026</FONT>                                    .addScript("database/init.sql")<a name="line.26"></a>
+<FONT color="green">027</FONT>                                    .build();<a name="line.27"></a>
+<FONT color="green">028</FONT>            }<a name="line.28"></a>
+<FONT color="green">029</FONT>    <a name="line.29"></a>
+<FONT color="green">030</FONT>            @Bean<a name="line.30"></a>
+<FONT color="green">031</FONT>            public DataSourceTransactionManager transactionManager() {<a name="line.31"></a>
+<FONT color="green">032</FONT>                    return new DataSourceTransactionManager(dataSource());<a name="line.32"></a>
+<FONT color="green">033</FONT>            }<a name="line.33"></a>
+<FONT color="green">034</FONT>    <a name="line.34"></a>
+<FONT color="green">035</FONT>            @Bean<a name="line.35"></a>
+<FONT color="green">036</FONT>            public SqlSessionFactory sqlSessionFactory() throws Exception {<a name="line.36"></a>
+<FONT color="green">037</FONT>                    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();<a name="line.37"></a>
+<FONT color="green">038</FONT>                    sessionFactory.setDataSource(dataSource());<a name="line.38"></a>
+<FONT color="green">039</FONT>                    sessionFactory.setTypeAliasesPackage("org.lanyonm.grabbag.domain");<a name="line.39"></a>
+<FONT color="green">040</FONT>                    return sessionFactory.getObject();<a name="line.40"></a>
+<FONT color="green">041</FONT>            }<a name="line.41"></a>
+<FONT color="green">042</FONT>    <a name="line.42"></a>
+<FONT color="green">043</FONT>    }<a name="line.43"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

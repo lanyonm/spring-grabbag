@@ -1,0 +1,100 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package org.lanyonm.grabbag.dao.jdbc;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.util.ArrayList;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import java.util.List;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import java.util.Map;<a name="line.5"></a>
+<FONT color="green">006</FONT>    <a name="line.6"></a>
+<FONT color="green">007</FONT>    import javax.sql.DataSource;<a name="line.7"></a>
+<FONT color="green">008</FONT>    <a name="line.8"></a>
+<FONT color="green">009</FONT>    import org.lanyonm.grabbag.dao.UsersDao;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import org.lanyonm.grabbag.domain.User;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import org.springframework.beans.factory.annotation.Autowired;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import org.springframework.jdbc.core.JdbcTemplate;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import org.springframework.stereotype.Repository;<a name="line.13"></a>
+<FONT color="green">014</FONT>    <a name="line.14"></a>
+<FONT color="green">015</FONT>    @Repository("usersDao")<a name="line.15"></a>
+<FONT color="green">016</FONT>    public class UsersDaoImpl implements UsersDao {<a name="line.16"></a>
+<FONT color="green">017</FONT>    <a name="line.17"></a>
+<FONT color="green">018</FONT>            @Autowired<a name="line.18"></a>
+<FONT color="green">019</FONT>            private DataSource dataSource;<a name="line.19"></a>
+<FONT color="green">020</FONT>    <a name="line.20"></a>
+<FONT color="green">021</FONT>            /*<a name="line.21"></a>
+<FONT color="green">022</FONT>             * (non-Javadoc)<a name="line.22"></a>
+<FONT color="green">023</FONT>             * @see org.lanyonm.grabbag.dao.UsersDao#getUsers()<a name="line.23"></a>
+<FONT color="green">024</FONT>             */<a name="line.24"></a>
+<FONT color="green">025</FONT>            public List&lt;User&gt; getUsers() {<a name="line.25"></a>
+<FONT color="green">026</FONT>                    JdbcTemplate template = new JdbcTemplate(dataSource);<a name="line.26"></a>
+<FONT color="green">027</FONT>                    List&lt;Map&lt;String, Object&gt;&gt; ret = template.queryForList("select * from user;");<a name="line.27"></a>
+<FONT color="green">028</FONT>                    List&lt;User&gt; users = new ArrayList&lt;User&gt;();<a name="line.28"></a>
+<FONT color="green">029</FONT>                    for (Map&lt;String, Object&gt; row : ret) {<a name="line.29"></a>
+<FONT color="green">030</FONT>                            users.add(new User((Long) row.get("ID"), row.get("FIRST_NAME").toString(), row.get("LAST_NAME").toString(), row.get("EMAIL").toString()));<a name="line.30"></a>
+<FONT color="green">031</FONT>                    }<a name="line.31"></a>
+<FONT color="green">032</FONT>                    return users;<a name="line.32"></a>
+<FONT color="green">033</FONT>            }<a name="line.33"></a>
+<FONT color="green">034</FONT>    }<a name="line.34"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

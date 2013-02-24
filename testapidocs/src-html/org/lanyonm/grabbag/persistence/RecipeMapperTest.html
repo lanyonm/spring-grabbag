@@ -1,0 +1,164 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package org.lanyonm.grabbag.persistence;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import static org.junit.Assert.assertEquals;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import static org.junit.Assert.assertNotNull;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import static org.junit.Assert.assertTrue;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import static org.junit.Assert.fail;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import static org.springframework.util.Assert.isInstanceOf;<a name="line.7"></a>
+<FONT color="green">008</FONT>    <a name="line.8"></a>
+<FONT color="green">009</FONT>    import java.util.HashMap;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import java.util.List;<a name="line.10"></a>
+<FONT color="green">011</FONT>    <a name="line.11"></a>
+<FONT color="green">012</FONT>    import org.junit.Ignore;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import org.junit.Test;<a name="line.13"></a>
+<FONT color="green">014</FONT>    import org.junit.runner.RunWith;<a name="line.14"></a>
+<FONT color="green">015</FONT>    import org.lanyonm.grabbag.config.DataConfig;<a name="line.15"></a>
+<FONT color="green">016</FONT>    import org.lanyonm.grabbag.domain.Recipe;<a name="line.16"></a>
+<FONT color="green">017</FONT>    import org.lanyonm.grabbag.domain.RecipeIngredient;<a name="line.17"></a>
+<FONT color="green">018</FONT>    import org.springframework.beans.factory.annotation.Autowired;<a name="line.18"></a>
+<FONT color="green">019</FONT>    import org.springframework.test.context.ContextConfiguration;<a name="line.19"></a>
+<FONT color="green">020</FONT>    import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;<a name="line.20"></a>
+<FONT color="green">021</FONT>    import org.springframework.test.context.support.AnnotationConfigContextLoader;<a name="line.21"></a>
+<FONT color="green">022</FONT>    <a name="line.22"></a>
+<FONT color="green">023</FONT>    /**<a name="line.23"></a>
+<FONT color="green">024</FONT>     * Tests {@link RecipeMapper}<a name="line.24"></a>
+<FONT color="green">025</FONT>     * <a name="line.25"></a>
+<FONT color="green">026</FONT>     * @author lanyonm<a name="line.26"></a>
+<FONT color="green">027</FONT>     */<a name="line.27"></a>
+<FONT color="green">028</FONT>    @RunWith(SpringJUnit4ClassRunner.class)<a name="line.28"></a>
+<FONT color="green">029</FONT>    @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={DataConfig.class})<a name="line.29"></a>
+<FONT color="green">030</FONT>    public class RecipeMapperTest {<a name="line.30"></a>
+<FONT color="green">031</FONT>    <a name="line.31"></a>
+<FONT color="green">032</FONT>            @Autowired<a name="line.32"></a>
+<FONT color="green">033</FONT>            private RecipeMapper recipeMapper;<a name="line.33"></a>
+<FONT color="green">034</FONT>    <a name="line.34"></a>
+<FONT color="green">035</FONT>            /**<a name="line.35"></a>
+<FONT color="green">036</FONT>             * @see RecipeMapper#getAllRecipes()<a name="line.36"></a>
+<FONT color="green">037</FONT>             */<a name="line.37"></a>
+<FONT color="green">038</FONT>            @Test<a name="line.38"></a>
+<FONT color="green">039</FONT>            public void testGetAllRecipes() {<a name="line.39"></a>
+<FONT color="green">040</FONT>                    List&lt;Recipe&gt; recipes = recipeMapper.getAllRecipes();<a name="line.40"></a>
+<FONT color="green">041</FONT>                    assertNotNull(recipes);<a name="line.41"></a>
+<FONT color="green">042</FONT>                    assertEquals("number of recipes", 2, recipes.size());<a name="line.42"></a>
+<FONT color="green">043</FONT>            }<a name="line.43"></a>
+<FONT color="green">044</FONT>    <a name="line.44"></a>
+<FONT color="green">045</FONT>            /**<a name="line.45"></a>
+<FONT color="green">046</FONT>             * Lookup Pistachio Dessert<a name="line.46"></a>
+<FONT color="green">047</FONT>             * <a name="line.47"></a>
+<FONT color="green">048</FONT>             * @see RecipeMapper#getRecipe(int)<a name="line.48"></a>
+<FONT color="green">049</FONT>             */<a name="line.49"></a>
+<FONT color="green">050</FONT>            @Test<a name="line.50"></a>
+<FONT color="green">051</FONT>            public void testGetRecipe() {<a name="line.51"></a>
+<FONT color="green">052</FONT>                    Recipe recipe = recipeMapper.getRecipe(1);<a name="line.52"></a>
+<FONT color="green">053</FONT>                    assertNotNull(recipe);<a name="line.53"></a>
+<FONT color="green">054</FONT>                    assertEquals("recipe name", "Pistachio Dessert", recipe.getName());<a name="line.54"></a>
+<FONT color="green">055</FONT>                    assertEquals("recipe description", null, recipe.getDescription());<a name="line.55"></a>
+<FONT color="green">056</FONT>                    assertNotNull("recipe ingredients", recipe.getIngredients());<a name="line.56"></a>
+<FONT color="green">057</FONT>                    assertEquals("number of ingredients", 9, recipe.getIngredients().size());<a name="line.57"></a>
+<FONT color="green">058</FONT>                    for (Object ingredient : recipe.getIngredients()) {<a name="line.58"></a>
+<FONT color="green">059</FONT>                            isInstanceOf(RecipeIngredient.class, ingredient, "ingredients are RecipeIngredients");<a name="line.59"></a>
+<FONT color="green">060</FONT>                            assertNotNull(((RecipeIngredient) ingredient).getName());<a name="line.60"></a>
+<FONT color="green">061</FONT>                            assertNotNull(((RecipeIngredient) ingredient).getName() + " volume", ((RecipeIngredient) ingredient).getVolume());<a name="line.61"></a>
+<FONT color="green">062</FONT>                    }<a name="line.62"></a>
+<FONT color="green">063</FONT>            }<a name="line.63"></a>
+<FONT color="green">064</FONT>    <a name="line.64"></a>
+<FONT color="green">065</FONT>            @Test<a name="line.65"></a>
+<FONT color="green">066</FONT>            @Ignore("implement this")<a name="line.66"></a>
+<FONT color="green">067</FONT>            public void testUpdateRecipe() {<a name="line.67"></a>
+<FONT color="green">068</FONT>                    fail("test something");<a name="line.68"></a>
+<FONT color="green">069</FONT>            }<a name="line.69"></a>
+<FONT color="green">070</FONT>    <a name="line.70"></a>
+<FONT color="green">071</FONT>            @Test<a name="line.71"></a>
+<FONT color="green">072</FONT>            public void testInsertRecipeSuccess() {<a name="line.72"></a>
+<FONT color="green">073</FONT>                    Recipe recipe = new Recipe();<a name="line.73"></a>
+<FONT color="green">074</FONT>                    recipe.setName("instant cream cheese pudding");<a name="line.74"></a>
+<FONT color="green">075</FONT>                    assertEquals("only 1 row should have been affected", 1, recipeMapper.insertRecipe(recipe));<a name="line.75"></a>
+<FONT color="green">076</FONT>                    assertTrue("new recipe id should be greater than 2", recipe.getId() &gt; 2);<a name="line.76"></a>
+<FONT color="green">077</FONT>            }<a name="line.77"></a>
+<FONT color="green">078</FONT>    <a name="line.78"></a>
+<FONT color="green">079</FONT>            @Test<a name="line.79"></a>
+<FONT color="green">080</FONT>            public void testInsertRecipeIngredientSuccess() {<a name="line.80"></a>
+<FONT color="green">081</FONT>                    assertEquals("only 1 ingredient in recipeId 2", 1, recipeMapper.getRecipe(2).getIngredients().size());<a name="line.81"></a>
+<FONT color="green">082</FONT>                    HashMap&lt;String, Object&gt; params = new HashMap&lt;String, Object&gt;();<a name="line.82"></a>
+<FONT color="green">083</FONT>                    params.put("recipeId", 2);<a name="line.83"></a>
+<FONT color="green">084</FONT>                    params.put("ingredientId", 2);<a name="line.84"></a>
+<FONT color="green">085</FONT>                    params.put("volume", "2 sticks");<a name="line.85"></a>
+<FONT color="green">086</FONT>                    assertEquals("only 1 row should have been affected", 1, recipeMapper.insertRecipeIngredient(params));<a name="line.86"></a>
+<FONT color="green">087</FONT>                    assertEquals("should be 2 ingredients in recipeId 2", 2, recipeMapper.getRecipe(2).getIngredients().size());<a name="line.87"></a>
+<FONT color="green">088</FONT>            }<a name="line.88"></a>
+<FONT color="green">089</FONT>    <a name="line.89"></a>
+<FONT color="green">090</FONT>            @Test<a name="line.90"></a>
+<FONT color="green">091</FONT>            public void testDeleteRecipeSuccess() {<a name="line.91"></a>
+<FONT color="green">092</FONT>                    assertEquals("there should be 3 recipes", 3, recipeMapper.getAllRecipes().size());<a name="line.92"></a>
+<FONT color="green">093</FONT>                    Recipe recipe = recipeMapper.getRecipe((int) recipeMapper.getAllRecipes().get(2).getId());<a name="line.93"></a>
+<FONT color="green">094</FONT>                    assertNotNull("recipe should not be null", recipe);<a name="line.94"></a>
+<FONT color="green">095</FONT>                    assertEquals("only 1 row should be affected", 1, recipeMapper.deleteRecipe(recipe));<a name="line.95"></a>
+<FONT color="green">096</FONT>                    assertEquals("there should be 2 recipes", 2, recipeMapper.getAllRecipes().size());<a name="line.96"></a>
+<FONT color="green">097</FONT>            }<a name="line.97"></a>
+<FONT color="green">098</FONT>    }<a name="line.98"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

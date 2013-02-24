@@ -1,0 +1,230 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package org.lanyonm.grabbag.web.controller;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.util.List;<a name="line.3"></a>
+<FONT color="green">004</FONT>    <a name="line.4"></a>
+<FONT color="green">005</FONT>    import org.lanyonm.grabbag.web.form.IngredientForm;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.lanyonm.grabbag.web.form.RecipeForm;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import org.lanyonm.grabbag.domain.Ingredient;<a name="line.7"></a>
+<FONT color="green">008</FONT>    import org.lanyonm.grabbag.domain.Recipe;<a name="line.8"></a>
+<FONT color="green">009</FONT>    import org.lanyonm.grabbag.service.CookbookService;<a name="line.9"></a>
+<FONT color="green">010</FONT>    <a name="line.10"></a>
+<FONT color="green">011</FONT>    import org.slf4j.Logger;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import org.slf4j.LoggerFactory;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import org.springframework.beans.factory.annotation.Autowired;<a name="line.13"></a>
+<FONT color="green">014</FONT>    import org.springframework.stereotype.Controller;<a name="line.14"></a>
+<FONT color="green">015</FONT>    import org.springframework.ui.Model;<a name="line.15"></a>
+<FONT color="green">016</FONT>    import org.springframework.validation.BindingResult;<a name="line.16"></a>
+<FONT color="green">017</FONT>    import org.springframework.validation.Validator;<a name="line.17"></a>
+<FONT color="green">018</FONT>    import org.springframework.web.bind.annotation.ModelAttribute;<a name="line.18"></a>
+<FONT color="green">019</FONT>    import org.springframework.web.bind.annotation.PathVariable;<a name="line.19"></a>
+<FONT color="green">020</FONT>    import org.springframework.web.bind.annotation.RequestMapping;<a name="line.20"></a>
+<FONT color="green">021</FONT>    import org.springframework.web.bind.annotation.RequestMethod;<a name="line.21"></a>
+<FONT color="green">022</FONT>    <a name="line.22"></a>
+<FONT color="green">023</FONT>    @Controller<a name="line.23"></a>
+<FONT color="green">024</FONT>    @RequestMapping("/cookbook")<a name="line.24"></a>
+<FONT color="green">025</FONT>    public class CookbookController {<a name="line.25"></a>
+<FONT color="green">026</FONT>    <a name="line.26"></a>
+<FONT color="green">027</FONT>            @Autowired<a name="line.27"></a>
+<FONT color="green">028</FONT>            private CookbookService cookbookService;<a name="line.28"></a>
+<FONT color="green">029</FONT>            @Autowired<a name="line.29"></a>
+<FONT color="green">030</FONT>            private Validator validator;<a name="line.30"></a>
+<FONT color="green">031</FONT>    <a name="line.31"></a>
+<FONT color="green">032</FONT>            private static final Logger log = LoggerFactory.getLogger(CookbookController.class);<a name="line.32"></a>
+<FONT color="green">033</FONT>    <a name="line.33"></a>
+<FONT color="green">034</FONT>            @RequestMapping("/")<a name="line.34"></a>
+<FONT color="green">035</FONT>            public String index(Model model) {<a name="line.35"></a>
+<FONT color="green">036</FONT>                    log.debug("Cookbook index mapping");<a name="line.36"></a>
+<FONT color="green">037</FONT>                    model.addAttribute("recipes", cookbookService.getAllRecipes());<a name="line.37"></a>
+<FONT color="green">038</FONT>                    return "cookbook/index";<a name="line.38"></a>
+<FONT color="green">039</FONT>            }<a name="line.39"></a>
+<FONT color="green">040</FONT>    <a name="line.40"></a>
+<FONT color="green">041</FONT>            @RequestMapping(value = "/recipe/{id}", method = RequestMethod.GET)<a name="line.41"></a>
+<FONT color="green">042</FONT>            public String recipe(@PathVariable("id") final int id, Model model) {<a name="line.42"></a>
+<FONT color="green">043</FONT>                    Recipe recipe = cookbookService.getRecipe(id);<a name="line.43"></a>
+<FONT color="green">044</FONT>                    if (recipe == null) {<a name="line.44"></a>
+<FONT color="green">045</FONT>                            model.addAttribute("error", "Something nefarious was attempted.");<a name="line.45"></a>
+<FONT color="green">046</FONT>                            return "redirect:/cookbook/";<a name="line.46"></a>
+<FONT color="green">047</FONT>                    }<a name="line.47"></a>
+<FONT color="green">048</FONT>                    model.addAttribute("recipe", recipe);<a name="line.48"></a>
+<FONT color="green">049</FONT>                    return "cookbook/recipe";<a name="line.49"></a>
+<FONT color="green">050</FONT>            }<a name="line.50"></a>
+<FONT color="green">051</FONT>    <a name="line.51"></a>
+<FONT color="green">052</FONT>            @RequestMapping(value = "/recipe/{id}/edit", method = RequestMethod.GET)<a name="line.52"></a>
+<FONT color="green">053</FONT>            public String recipeAddEditShow(@PathVariable("id") final int id, Model model) {<a name="line.53"></a>
+<FONT color="green">054</FONT>                    Recipe recipe = cookbookService.getRecipe(id);<a name="line.54"></a>
+<FONT color="green">055</FONT>                    if (recipe == null &amp;&amp; id &gt; 0) {<a name="line.55"></a>
+<FONT color="green">056</FONT>                            model.addAttribute("error", "Something nefarious was attempted.");<a name="line.56"></a>
+<FONT color="green">057</FONT>                            return "redirect:/cookbook/";<a name="line.57"></a>
+<FONT color="green">058</FONT>                    } else if (id == 0) {<a name="line.58"></a>
+<FONT color="green">059</FONT>                            recipe = new Recipe();<a name="line.59"></a>
+<FONT color="green">060</FONT>                    }<a name="line.60"></a>
+<FONT color="green">061</FONT>                    model.addAttribute("recipe", recipe);<a name="line.61"></a>
+<FONT color="green">062</FONT>                    model.addAttribute("allIngredients", cookbookService.getAllIngredients());<a name="line.62"></a>
+<FONT color="green">063</FONT>                    return "cookbook/recipeAddEdit";<a name="line.63"></a>
+<FONT color="green">064</FONT>            }<a name="line.64"></a>
+<FONT color="green">065</FONT>    <a name="line.65"></a>
+<FONT color="green">066</FONT>            @RequestMapping(value = "/recipe/{id}/edit", method = RequestMethod.POST)<a name="line.66"></a>
+<FONT color="green">067</FONT>            public String recipeAddEditSave(@PathVariable("id") final int id, Model model, @ModelAttribute("recipe") RecipeForm recipeForm, BindingResult result) {<a name="line.67"></a>
+<FONT color="green">068</FONT>                    Recipe recipe = new Recipe();<a name="line.68"></a>
+<FONT color="green">069</FONT>                    if (id == 0) {<a name="line.69"></a>
+<FONT color="green">070</FONT>                            recipe.setName(recipeForm.getName());<a name="line.70"></a>
+<FONT color="green">071</FONT>                            recipe.setDescription(recipeForm.getDescription());<a name="line.71"></a>
+<FONT color="green">072</FONT>                            cookbookService.saveRecipe(recipe);<a name="line.72"></a>
+<FONT color="green">073</FONT>                    } else {<a name="line.73"></a>
+<FONT color="green">074</FONT>                            recipe = cookbookService.getRecipe(id);<a name="line.74"></a>
+<FONT color="green">075</FONT>                            if (recipe != null) {<a name="line.75"></a>
+<FONT color="green">076</FONT>                                    recipe.setName(recipeForm.getName());<a name="line.76"></a>
+<FONT color="green">077</FONT>                                    recipe.setDescription(recipeForm.getDescription());<a name="line.77"></a>
+<FONT color="green">078</FONT>                                    cookbookService.saveRecipe(recipe);<a name="line.78"></a>
+<FONT color="green">079</FONT>                            } else {<a name="line.79"></a>
+<FONT color="green">080</FONT>                                    model.addAttribute("error", "Something nefarious was attempted.");<a name="line.80"></a>
+<FONT color="green">081</FONT>                            }<a name="line.81"></a>
+<FONT color="green">082</FONT>                    }<a name="line.82"></a>
+<FONT color="green">083</FONT>                    return "redirect:/cookbook/";<a name="line.83"></a>
+<FONT color="green">084</FONT>            }<a name="line.84"></a>
+<FONT color="green">085</FONT>    <a name="line.85"></a>
+<FONT color="green">086</FONT>            @RequestMapping(value = "/recipe/{id}/delete", method = RequestMethod.GET)<a name="line.86"></a>
+<FONT color="green">087</FONT>            public String deleteRecipe(@PathVariable("id") final int id, Model model) {<a name="line.87"></a>
+<FONT color="green">088</FONT>                    Recipe recipe = cookbookService.getRecipe(id);<a name="line.88"></a>
+<FONT color="green">089</FONT>                    if (cookbookService.deleteRecipe(recipe)) {<a name="line.89"></a>
+<FONT color="green">090</FONT>                            model.addAttribute("message", "You successfully deleted " + recipe.getName() + "!");<a name="line.90"></a>
+<FONT color="green">091</FONT>                    } else {<a name="line.91"></a>
+<FONT color="green">092</FONT>                            model.addAttribute("error", "There was an error deleteing the recipe.");<a name="line.92"></a>
+<FONT color="green">093</FONT>                    }<a name="line.93"></a>
+<FONT color="green">094</FONT>                    return "redirect:/cookbook/";<a name="line.94"></a>
+<FONT color="green">095</FONT>            }<a name="line.95"></a>
+<FONT color="green">096</FONT>    <a name="line.96"></a>
+<FONT color="green">097</FONT>            @RequestMapping("/ingredients")<a name="line.97"></a>
+<FONT color="green">098</FONT>            public String ingredients(Model model) {<a name="line.98"></a>
+<FONT color="green">099</FONT>                    model.addAttribute("ingredients", cookbookService.getAllIngredients());<a name="line.99"></a>
+<FONT color="green">100</FONT>                    return "cookbook/ingredients";<a name="line.100"></a>
+<FONT color="green">101</FONT>            }<a name="line.101"></a>
+<FONT color="green">102</FONT>    <a name="line.102"></a>
+<FONT color="green">103</FONT>            @RequestMapping(value = "/ingredient/{id}/edit", method = RequestMethod.GET)<a name="line.103"></a>
+<FONT color="green">104</FONT>            public String ingredientAddEditShow(@PathVariable("id") final int id, Model model) {<a name="line.104"></a>
+<FONT color="green">105</FONT>                    Ingredient ingredient = cookbookService.getIngredient(id);<a name="line.105"></a>
+<FONT color="green">106</FONT>                    log.debug("when searching for ingredient " + id + ", we found " + ingredient);<a name="line.106"></a>
+<FONT color="green">107</FONT>                    if (ingredient == null &amp;&amp; id &gt; 0) {<a name="line.107"></a>
+<FONT color="green">108</FONT>                            model.addAttribute("error", "Something nefarious was attempted.");<a name="line.108"></a>
+<FONT color="green">109</FONT>                            return "redirect:/cookbook/ingredients";<a name="line.109"></a>
+<FONT color="green">110</FONT>                    } else if (ingredient == null &amp;&amp; id == 0) {<a name="line.110"></a>
+<FONT color="green">111</FONT>                            ingredient = new Ingredient();<a name="line.111"></a>
+<FONT color="green">112</FONT>                    }<a name="line.112"></a>
+<FONT color="green">113</FONT>                    model.addAttribute("ingredient", ingredient);<a name="line.113"></a>
+<FONT color="green">114</FONT>                    model.addAttribute("isNew", id == 0);<a name="line.114"></a>
+<FONT color="green">115</FONT>                    return "cookbook/ingredientAddEdit";<a name="line.115"></a>
+<FONT color="green">116</FONT>            }<a name="line.116"></a>
+<FONT color="green">117</FONT>    <a name="line.117"></a>
+<FONT color="green">118</FONT>            @RequestMapping(value = "/ingredient/{id}/edit", method = RequestMethod.POST)<a name="line.118"></a>
+<FONT color="green">119</FONT>            public String ingredientAddEditSave(@PathVariable("id") final int id, Model model, @ModelAttribute("ingredient") IngredientForm ingredientForm, BindingResult result) {<a name="line.119"></a>
+<FONT color="green">120</FONT>                    model.addAttribute("ingredient", ingredientForm);<a name="line.120"></a>
+<FONT color="green">121</FONT>                    validator.validate(ingredientForm, result);<a name="line.121"></a>
+<FONT color="green">122</FONT>                    if (result.hasErrors()) {<a name="line.122"></a>
+<FONT color="green">123</FONT>                            model.addAttribute("isNew", id == 0);<a name="line.123"></a>
+<FONT color="green">124</FONT>                            return "cookbook/ingredientAddEdit";<a name="line.124"></a>
+<FONT color="green">125</FONT>                    }<a name="line.125"></a>
+<FONT color="green">126</FONT>    <a name="line.126"></a>
+<FONT color="green">127</FONT>                    Ingredient ingredient = new Ingredient();<a name="line.127"></a>
+<FONT color="green">128</FONT>                    if (id == 0) {<a name="line.128"></a>
+<FONT color="green">129</FONT>                            ingredient.setName(ingredientForm.getName());<a name="line.129"></a>
+<FONT color="green">130</FONT>                            ingredient.setDescription(ingredientForm.getDescription());<a name="line.130"></a>
+<FONT color="green">131</FONT>                            cookbookService.saveIngredient(ingredient);<a name="line.131"></a>
+<FONT color="green">132</FONT>                    } else {<a name="line.132"></a>
+<FONT color="green">133</FONT>                            ingredient = cookbookService.getIngredient(id);<a name="line.133"></a>
+<FONT color="green">134</FONT>                            if (ingredient != null) {<a name="line.134"></a>
+<FONT color="green">135</FONT>                                    ingredient.setName(ingredientForm.getName());<a name="line.135"></a>
+<FONT color="green">136</FONT>                                    ingredient.setDescription(ingredientForm.getDescription());<a name="line.136"></a>
+<FONT color="green">137</FONT>                                    cookbookService.saveIngredient(ingredient);<a name="line.137"></a>
+<FONT color="green">138</FONT>                            } else {<a name="line.138"></a>
+<FONT color="green">139</FONT>                                    model.addAttribute("error", "Something nefarious was attempted.");<a name="line.139"></a>
+<FONT color="green">140</FONT>                            }<a name="line.140"></a>
+<FONT color="green">141</FONT>                    }<a name="line.141"></a>
+<FONT color="green">142</FONT>                    return "redirect:/cookbook/ingredients";<a name="line.142"></a>
+<FONT color="green">143</FONT>            }<a name="line.143"></a>
+<FONT color="green">144</FONT>    <a name="line.144"></a>
+<FONT color="green">145</FONT>            @RequestMapping(value = "/ingredient/{id}/delete", method = RequestMethod.GET)<a name="line.145"></a>
+<FONT color="green">146</FONT>            public String ingredientDelete(@PathVariable("id") final int id, Model model) {<a name="line.146"></a>
+<FONT color="green">147</FONT>                    Ingredient ingredient = cookbookService.getIngredient(id);<a name="line.147"></a>
+<FONT color="green">148</FONT>                    if (!cookbookService.getRecipesWithIngredient(ingredient).isEmpty()) {<a name="line.148"></a>
+<FONT color="green">149</FONT>                            List&lt;Recipe&gt; recipes = cookbookService.getRecipesWithIngredient(ingredient);<a name="line.149"></a>
+<FONT color="green">150</FONT>                            StringBuilder builder = new StringBuilder("Couldn't delete the ingredient. ");<a name="line.150"></a>
+<FONT color="green">151</FONT>                            for (Recipe recipe : recipes) {<a name="line.151"></a>
+<FONT color="green">152</FONT>                                    builder.append("It is used in " + recipe.getName() + ". ");<a name="line.152"></a>
+<FONT color="green">153</FONT>                            }<a name="line.153"></a>
+<FONT color="green">154</FONT>                            model.addAttribute("error", builder.toString());<a name="line.154"></a>
+<FONT color="green">155</FONT>                    } else {<a name="line.155"></a>
+<FONT color="green">156</FONT>                            if (cookbookService.deleteIngredient(ingredient)) {<a name="line.156"></a>
+<FONT color="green">157</FONT>                                    model.addAttribute("message", "You successfully deleted " + ingredient.getName() + "!");<a name="line.157"></a>
+<FONT color="green">158</FONT>                            } else {<a name="line.158"></a>
+<FONT color="green">159</FONT>                                    model.addAttribute("error", "There was an error deleteing the ingredient.");<a name="line.159"></a>
+<FONT color="green">160</FONT>                            }<a name="line.160"></a>
+<FONT color="green">161</FONT>                    }<a name="line.161"></a>
+<FONT color="green">162</FONT>                    return "redirect:/cookbook/ingredients";<a name="line.162"></a>
+<FONT color="green">163</FONT>            }<a name="line.163"></a>
+<FONT color="green">164</FONT>    }<a name="line.164"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>
