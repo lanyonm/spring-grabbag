@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<name>Spring Grabbag</name>
-	<url>http://lanyonm.org/grabbag/</url>
+	<url>http://lanyonm.github.com/spring-grabbag/</url>
 	<description>A large demo/playground application for Spring experimentation.</description>
 
 	<properties>
@@ -23,6 +23,7 @@
 			<id>lanyonm</id>
 			<name>Mike Lanyon</name>
 			<email>lanyonm@gmail.com</email>
+			<url>https://github.com/lanyonm</url>
 		</developer>
 	</developers>
 

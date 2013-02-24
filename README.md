@@ -14,11 +14,16 @@ Because this project uses maven, tests can be run quite simply:
 If you find yourself needing to exclude tests, you can simply add ``-Dmaven.test.skip=true``.
 
 # ORM
-This project currently uses straight JDBC and MyBatis for different repository classes.
+This project currently uses straight JDBC and [MyBatis](http://mybatis.github.com/spring/) for different repository classes.
+
+# Testing
+Travis-ci is configured for this project and is currently configured to build against OpenJDK6.
+
+# [The Site](http://lanyonm.github.com/spring-grabbag/)
+Maven will generate a site with general information, javadoc, code coverage, update reports and more. See [Github Maven Plugins](https://github.com/github/maven-plugins) for more info about how to configure a maven published gh-pages site.
 
 # TODO
 
-* i18n messages w/locale detection
 * example datetime command object conversion
 * Add view-layer framework
 * MyBatis transaction management
