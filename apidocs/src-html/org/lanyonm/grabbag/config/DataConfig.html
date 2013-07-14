@@ -7,7 +7,7 @@
 <FONT color="green">004</FONT>    <a name="line.4"></a>
 <FONT color="green">005</FONT>    import org.apache.ibatis.session.SqlSessionFactory;<a name="line.5"></a>
 <FONT color="green">006</FONT>    import org.mybatis.spring.SqlSessionFactoryBean;<a name="line.6"></a>
-<FONT color="green">007</FONT>    import org.mybatis.spring.annotation.EnableMapperScanning;<a name="line.7"></a>
+<FONT color="green">007</FONT>    import org.mybatis.spring.annotation.MapperScan;<a name="line.7"></a>
 <FONT color="green">008</FONT>    <a name="line.8"></a>
 <FONT color="green">009</FONT>    import org.springframework.context.annotation.Bean;<a name="line.9"></a>
 <FONT color="green">010</FONT>    import org.springframework.context.annotation.Configuration;<a name="line.10"></a>
@@ -18,7 +18,7 @@
 <FONT color="green">015</FONT>    <a name="line.15"></a>
 <FONT color="green">016</FONT>    @Configuration<a name="line.16"></a>
 <FONT color="green">017</FONT>    //@Profile({"dev", "test"})<a name="line.17"></a>
-<FONT color="green">018</FONT>    @EnableMapperScanning("org.lanyonm.grabbag.persistence")<a name="line.18"></a>
+<FONT color="green">018</FONT>    @MapperScan("org.lanyonm.grabbag.persistence")<a name="line.18"></a>
 <FONT color="green">019</FONT>    public class DataConfig {<a name="line.19"></a>
 <FONT color="green">020</FONT>    <a name="line.20"></a>
 <FONT color="green">021</FONT>            @Bean<a name="line.21"></a>

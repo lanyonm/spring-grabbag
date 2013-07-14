@@ -14,7 +14,7 @@
 <a class="jxr_linenumber" name="4" href="#4">4</a>   
 <a class="jxr_linenumber" name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> org.apache.ibatis.session.SqlSessionFactory;
 <a class="jxr_linenumber" name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> org.mybatis.spring.SqlSessionFactoryBean;
-<a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> org.mybatis.spring.annotation.EnableMapperScanning;
+<a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> org.mybatis.spring.annotation.MapperScan;
 <a class="jxr_linenumber" name="8" href="#8">8</a>   
 <a class="jxr_linenumber" name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> org.springframework.context.annotation.Bean;
 <a class="jxr_linenumber" name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@
 <a class="jxr_linenumber" name="15" href="#15">15</a>  
 <a class="jxr_linenumber" name="16" href="#16">16</a>  @Configuration
 <a class="jxr_linenumber" name="17" href="#17">17</a>  <em class="jxr_comment">//@Profile({"dev", "test"})</em>
-<a class="jxr_linenumber" name="18" href="#18">18</a>  @EnableMapperScanning(<span class="jxr_string">"org.lanyonm.grabbag.persistence"</span>)
+<a class="jxr_linenumber" name="18" href="#18">18</a>  @MapperScan(<span class="jxr_string">"org.lanyonm.grabbag.persistence"</span>)
 <a class="jxr_linenumber" name="19" href="#19">19</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/lanyonm/grabbag/config/DataConfig.html">DataConfig</a> {
 <a class="jxr_linenumber" name="20" href="#20">20</a>  
 <a class="jxr_linenumber" name="21" href="#21">21</a>  	@Bean
