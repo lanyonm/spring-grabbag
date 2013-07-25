@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2013-07-14T16:56:56.692">
+<pmd version="4.3" timestamp="2013-07-25T13:46:22.638">
 <file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/config/WebAppInitializer.java">
 <violation beginline="17" endline="17" begincolumn="1" endcolumn="61" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'org.springframework.web.filter.HiddenHttpMethodFilter'
