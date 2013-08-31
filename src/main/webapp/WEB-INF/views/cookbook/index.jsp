@@ -1,5 +1,7 @@
-<%@ include file="/WEB-INF/includes/header.jspf" %>
-	<title>DB</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+	<title>Cookbook</title>
 </head>
 <body>
 	<h1>Cookbook Recipes</h1>
@@ -19,4 +21,5 @@
 			<a href="recipe/0/edit">Add Recipe</a> | <a href="ingredients" title="All Ingredients">All Ingredients</a>
 		</div>
 	</article>
-<%@ include file="/WEB-INF/includes/footer.jspf" %>
+</body>
+</html>

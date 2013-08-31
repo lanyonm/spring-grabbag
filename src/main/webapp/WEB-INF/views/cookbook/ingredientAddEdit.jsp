@@ -1,5 +1,9 @@
-<%@ include file="/WEB-INF/includes/header.jspf"%>
-<spring:message code="ingredient.name" var="name" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<html>
+<head>
+	<spring:message code="ingredient.name" var="name" />
 	<title>DB</title>
 </head>
 <body>
@@ -19,4 +23,5 @@
 			</tr>
 		</table>
 	</form:form>
-<%@ include file="/WEB-INF/includes/footer.jspf"%>
+</body>
+</html>

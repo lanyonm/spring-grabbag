@@ -1,4 +1,7 @@
-<%@ include file="/WEB-INF/includes/header.jspf" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+<head>
 	<title>${ recipe.id == 0 ? 'Add' : 'Edit' } Recipe</title>
 </head>
 <body>
@@ -48,4 +51,5 @@
 		</ul>
 	</div>
 	<div style="clear:both;"></div>
-<%@ include file="/WEB-INF/includes/footer.jspf" %>
+</body>
+</html>

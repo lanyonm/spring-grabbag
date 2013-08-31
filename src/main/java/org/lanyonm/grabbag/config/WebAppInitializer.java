@@ -17,6 +17,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
+
 /**
  * Inspired by http://rockhoppertech.com/blog/spring-mvc-configuration-without-xml/
  * 
@@ -44,11 +46,15 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		// Hidden Http Methods
 //		FilterRegistration.Dynamic fr = servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter());
 //		fr.addMappingForUrlPatterns(null, true, "/*");
-//		
-//		// UTF-8 Encoding
+
+		// UTF-8 Encoding
 		FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
 		fr.setInitParameter("encoding", "UTF-8");
 		fr.setInitParameter("forceEncoding", "true");
+		fr.addMappingForUrlPatterns(null, true, "/*");
+		
+		// SiteMesh
+		fr = servletContext.addFilter("sitemesh", new SiteMeshFilter());
 		fr.addMappingForUrlPatterns(null, true, "/*");
 		
 		// The main Spring MVC servlet

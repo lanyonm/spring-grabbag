@@ -1,4 +1,5 @@
-<%@ include file="/WEB-INF/includes/header.jspf" %>
+<html>
+<head>
 	<title>Homepage</title>
 </head>
 <body>
@@ -6,4 +7,5 @@
 	<ul>
 		<li><a href="cookbook/">Cookbook</a></li>
 	</ul>
-<%@ include file="/WEB-INF/includes/footer.jspf" %>
+</body>
+</html>

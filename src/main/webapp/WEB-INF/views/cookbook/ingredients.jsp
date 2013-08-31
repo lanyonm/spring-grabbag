@@ -1,5 +1,7 @@
-<%@ include file="/WEB-INF/includes/header.jspf" %>
-	<title>DB</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+	<title>Ingredients</title>
 </head>
 <body>
 	<h1>All Ingredients</h1>
@@ -15,4 +17,5 @@
 		</c:forEach>
 	</ul>
 	<a href="ingredient/0/edit">Add Ingredient</a>
-<%@ include file="/WEB-INF/includes/footer.jspf" %>
+</body>
+</html>
