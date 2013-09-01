@@ -46,4 +46,17 @@ public class HomeControllerTest {
 		this.mockMvc.perform(get("/defined-path")).andExpect(status().isOk())
 			.andExpect(model().attribute("sample", "Defined Path!!!"));
 	}
+
+	@Test
+	public void testJdbc() throws Exception {
+		this.mockMvc.perform(get("/jdbc")).andExpect(status().isOk())
+			.andExpect(model().size(1))
+			.andExpect(model().attributeExists("users"));
+	}
+
+	@Test
+	public void testMyBatis() throws Exception {
+		this.mockMvc.perform(get("/mybatis")).andExpect(status().isOk())
+			.andExpect(model().attributeExists("ingredients"));
+	}
 }
