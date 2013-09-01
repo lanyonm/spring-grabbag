@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2013-07-25T13:46:22.638">
+<pmd version="4.3" timestamp="2013-09-01T00:12:52.752">
 <file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/config/WebAppInitializer.java">
-<violation beginline="17" endline="17" begincolumn="1" endcolumn="61" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+<violation beginline="18" endline="18" begincolumn="1" endcolumn="61" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'org.springframework.web.filter.HiddenHttpMethodFilter'
 </violation>
 </file>
 <file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/config/WebConfig.java">
-<violation beginline="3" endline="3" begincolumn="1" endcolumn="24" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
-Avoid unused imports such as 'java.util.Locale'
-</violation>
-<violation beginline="15" endline="15" begincolumn="1" endcolumn="68" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+<violation beginline="16" endline="16" begincolumn="1" endcolumn="68" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'org.springframework.web.servlet.i18n.LocaleChangeInterceptor'
 </violation>
 </file>

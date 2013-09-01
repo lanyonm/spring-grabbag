@@ -10,73 +10,83 @@
 
 <a class="jxr_linenumber" name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> org.lanyonm.grabbag.config;
 <a class="jxr_linenumber" name="2" href="#2">2</a>   
-<a class="jxr_linenumber" name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> java.util.Set;
-<a class="jxr_linenumber" name="4" href="#4">4</a>   
-<a class="jxr_linenumber" name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> javax.servlet.FilterRegistration;
-<a class="jxr_linenumber" name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> javax.servlet.ServletContext;
-<a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> javax.servlet.ServletException;
-<a class="jxr_linenumber" name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> javax.servlet.ServletRegistration;
-<a class="jxr_linenumber" name="9" href="#9">9</a>   
-<a class="jxr_linenumber" name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
-<a class="jxr_linenumber" name="11" href="#11">11</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
-<a class="jxr_linenumber" name="12" href="#12">12</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.WebApplicationInitializer;
-<a class="jxr_linenumber" name="13" href="#13">13</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.context.ContextLoaderListener;
-<a class="jxr_linenumber" name="14" href="#14">14</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-<a class="jxr_linenumber" name="15" href="#15">15</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.context.support.GenericWebApplicationContext;
-<a class="jxr_linenumber" name="16" href="#16">16</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.filter.CharacterEncodingFilter;
-<a class="jxr_linenumber" name="17" href="#17">17</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.filter.HiddenHttpMethodFilter;
-<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.servlet.DispatcherServlet;
-<a class="jxr_linenumber" name="19" href="#19">19</a>  
-<a class="jxr_linenumber" name="20" href="#20">20</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="21" href="#21">21</a>  <em class="jxr_javadoccomment"> * Inspired by <a href="http://rockhoppertech.com/blog/spring-mvc-configuration-without-xml/" target="alexandria_uri">http://rockhoppertech.com/blog/spring-mvc-configuration-without-xml/</a></em>
-<a class="jxr_linenumber" name="22" href="#22">22</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="23" href="#23">23</a>  <em class="jxr_javadoccomment"> * @author LanyonM</em>
-<a class="jxr_linenumber" name="24" href="#24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/lanyonm/grabbag/config/WebAppInitializer.html">WebAppInitializer</a> <strong class="jxr_keyword">implements</strong> WebApplicationInitializer {
-<a class="jxr_linenumber" name="26" href="#26">26</a>  
-<a class="jxr_linenumber" name="27" href="#27">27</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger log = LoggerFactory.getLogger(WebAppInitializer.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="28" href="#28">28</a>  
-<a class="jxr_linenumber" name="29" href="#29">29</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onStartup(ServletContext servletContext) <strong class="jxr_keyword">throws</strong> ServletException {
-<a class="jxr_linenumber" name="30" href="#30">30</a>  		<em class="jxr_comment">// Create the 'root' Spring application context</em>
-<a class="jxr_linenumber" name="31" href="#31">31</a>  		AnnotationConfigWebApplicationContext root = <strong class="jxr_keyword">new</strong> AnnotationConfigWebApplicationContext();
-<a class="jxr_linenumber" name="32" href="#32">32</a>  		root.scan(<span class="jxr_string">"org.lanyonm.grabbag"</span>);
-<a class="jxr_linenumber" name="33" href="#33">33</a>  		root.getEnvironment().setDefaultProfiles(<span class="jxr_string">"embedded"</span>);
-<a class="jxr_linenumber" name="34" href="#34">34</a>  		
-<a class="jxr_linenumber" name="35" href="#35">35</a>  		<em class="jxr_comment">// Manage the lifecycle of the root appcontext</em>
-<a class="jxr_linenumber" name="36" href="#36">36</a>  		servletContext.addListener(<strong class="jxr_keyword">new</strong> ContextLoaderListener(root));
-<a class="jxr_linenumber" name="37" href="#37">37</a>  		servletContext.setInitParameter(<span class="jxr_string">"defaultHtmlEscape"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="38" href="#38">38</a>  		
-<a class="jxr_linenumber" name="39" href="#39">39</a>  		<em class="jxr_comment">// now the config for the Dispatcher servlet</em>
-<a class="jxr_linenumber" name="40" href="#40">40</a>  		AnnotationConfigWebApplicationContext mvcContext = <strong class="jxr_keyword">new</strong> AnnotationConfigWebApplicationContext();
-<a class="jxr_linenumber" name="41" href="#41">41</a>  		mvcContext.register(WebConfig.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="42" href="#42">42</a>  		
-<a class="jxr_linenumber" name="43" href="#43">43</a>  		<em class="jxr_comment">// Filters - http://static.springsource.org/spring/docs/3.2.x/javadoc-api/org/springframework/web/filter/package-frame.html</em>
-<a class="jxr_linenumber" name="44" href="#44">44</a>  		<em class="jxr_comment">// Hidden Http Methods</em>
-<a class="jxr_linenumber" name="45" href="#45">45</a>  <em class="jxr_comment">//		FilterRegistration.Dynamic fr = servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter());</em>
-<a class="jxr_linenumber" name="46" href="#46">46</a>  <em class="jxr_comment">//		fr.addMappingForUrlPatterns(null, true, "/*");</em>
-<a class="jxr_linenumber" name="47" href="#47">47</a>  <em class="jxr_comment">//		</em>
-<a class="jxr_linenumber" name="48" href="#48">48</a>  <em class="jxr_comment">//		// UTF-8 Encoding</em>
-<a class="jxr_linenumber" name="49" href="#49">49</a>  		FilterRegistration.Dynamic fr = servletContext.addFilter(<span class="jxr_string">"encodingFilter"</span>, <strong class="jxr_keyword">new</strong> CharacterEncodingFilter());
-<a class="jxr_linenumber" name="50" href="#50">50</a>  		fr.setInitParameter(<span class="jxr_string">"encoding"</span>, <span class="jxr_string">"UTF-8"</span>);
-<a class="jxr_linenumber" name="51" href="#51">51</a>  		fr.setInitParameter(<span class="jxr_string">"forceEncoding"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="52" href="#52">52</a>  		fr.addMappingForUrlPatterns(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">true</strong>, <span class="jxr_string">"/*"</span>);
-<a class="jxr_linenumber" name="53" href="#53">53</a>  		
-<a class="jxr_linenumber" name="54" href="#54">54</a>  		<em class="jxr_comment">// The main Spring MVC servlet</em>
-<a class="jxr_linenumber" name="55" href="#55">55</a>  		ServletRegistration.Dynamic dispatcherServlet = servletContext.addServlet(
-<a class="jxr_linenumber" name="56" href="#56">56</a>  				<span class="jxr_string">"dispatcher"</span>, <strong class="jxr_keyword">new</strong> DispatcherServlet(<strong class="jxr_keyword">new</strong> GenericWebApplicationContext()));
-<a class="jxr_linenumber" name="57" href="#57">57</a>  		dispatcherServlet.setLoadOnStartup(1);
-<a class="jxr_linenumber" name="58" href="#58">58</a>  		Set&lt;String&gt; mappingConflicts = dispatcherServlet.addMapping(<span class="jxr_string">"/"</span>);
-<a class="jxr_linenumber" name="59" href="#59">59</a>  		<strong class="jxr_keyword">if</strong> (!mappingConflicts.isEmpty()) {
-<a class="jxr_linenumber" name="60" href="#60">60</a>  			<strong class="jxr_keyword">for</strong> (String s : mappingConflicts) {
-<a class="jxr_linenumber" name="61" href="#61">61</a>  				log.error(<span class="jxr_string">"Mapping conflict: "</span> + s);
-<a class="jxr_linenumber" name="62" href="#62">62</a>  			}
-<a class="jxr_linenumber" name="63" href="#63">63</a>  			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">"'dispatcher' could not be mapped to '/' due "</span> +
-<a class="jxr_linenumber" name="64" href="#64">64</a>  					<span class="jxr_string">"to an existing mapping. This is a known issue under Tomcat versions "</span> +
-<a class="jxr_linenumber" name="65" href="#65">65</a>  					<span class="jxr_string">"&lt;= 7.0.14; see https://issues.apache.org/bugzilla/show_bug.cgi?id=51278"</span>);
-<a class="jxr_linenumber" name="66" href="#66">66</a>  		}
-<a class="jxr_linenumber" name="67" href="#67">67</a>  	}
-<a class="jxr_linenumber" name="68" href="#68">68</a>  
-<a class="jxr_linenumber" name="69" href="#69">69</a>  }
+<a class="jxr_linenumber" name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> java.util.Calendar;
+<a class="jxr_linenumber" name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> java.util.Set;
+<a class="jxr_linenumber" name="5" href="#5">5</a>   
+<a class="jxr_linenumber" name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> javax.servlet.FilterRegistration;
+<a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> javax.servlet.ServletContext;
+<a class="jxr_linenumber" name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> javax.servlet.ServletException;
+<a class="jxr_linenumber" name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> javax.servlet.ServletRegistration;
+<a class="jxr_linenumber" name="10" href="#10">10</a>  
+<a class="jxr_linenumber" name="11" href="#11">11</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
+<a class="jxr_linenumber" name="12" href="#12">12</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
+<a class="jxr_linenumber" name="13" href="#13">13</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.WebApplicationInitializer;
+<a class="jxr_linenumber" name="14" href="#14">14</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.context.ContextLoaderListener;
+<a class="jxr_linenumber" name="15" href="#15">15</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+<a class="jxr_linenumber" name="16" href="#16">16</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.context.support.GenericWebApplicationContext;
+<a class="jxr_linenumber" name="17" href="#17">17</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.filter.CharacterEncodingFilter;
+<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.filter.HiddenHttpMethodFilter;
+<a class="jxr_linenumber" name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.servlet.DispatcherServlet;
+<a class="jxr_linenumber" name="20" href="#20">20</a>  
+<a class="jxr_linenumber" name="21" href="#21">21</a>  <strong class="jxr_keyword">import</strong> com.opensymphony.sitemesh.webapp.SiteMeshFilter;
+<a class="jxr_linenumber" name="22" href="#22">22</a>  
+<a class="jxr_linenumber" name="23" href="#23">23</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="24" href="#24">24</a>  <em class="jxr_javadoccomment"> * Inspired by <a href="http://rockhoppertech.com/blog/spring-mvc-configuration-without-xml/" target="alexandria_uri">http://rockhoppertech.com/blog/spring-mvc-configuration-without-xml/</a></em>
+<a class="jxr_linenumber" name="25" href="#25">25</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="26" href="#26">26</a>  <em class="jxr_javadoccomment"> * @author LanyonM</em>
+<a class="jxr_linenumber" name="27" href="#27">27</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/lanyonm/grabbag/config/WebAppInitializer.html">WebAppInitializer</a> <strong class="jxr_keyword">implements</strong> WebApplicationInitializer {
+<a class="jxr_linenumber" name="29" href="#29">29</a>  
+<a class="jxr_linenumber" name="30" href="#30">30</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger log = LoggerFactory.getLogger(WebAppInitializer.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="31" href="#31">31</a>  
+<a class="jxr_linenumber" name="32" href="#32">32</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onStartup(ServletContext servletContext) <strong class="jxr_keyword">throws</strong> ServletException {
+<a class="jxr_linenumber" name="33" href="#33">33</a>  		<em class="jxr_comment">// Create the 'root' Spring application context</em>
+<a class="jxr_linenumber" name="34" href="#34">34</a>  		AnnotationConfigWebApplicationContext root = <strong class="jxr_keyword">new</strong> AnnotationConfigWebApplicationContext();
+<a class="jxr_linenumber" name="35" href="#35">35</a>  		root.scan(<span class="jxr_string">"org.lanyonm.grabbag"</span>);
+<a class="jxr_linenumber" name="36" href="#36">36</a>  		root.getEnvironment().setDefaultProfiles(<span class="jxr_string">"embedded"</span>);
+<a class="jxr_linenumber" name="37" href="#37">37</a>  		
+<a class="jxr_linenumber" name="38" href="#38">38</a>  		<em class="jxr_comment">// Manage the lifecycle of the root appcontext</em>
+<a class="jxr_linenumber" name="39" href="#39">39</a>  		servletContext.addListener(<strong class="jxr_keyword">new</strong> ContextLoaderListener(root));
+<a class="jxr_linenumber" name="40" href="#40">40</a>  		servletContext.setInitParameter(<span class="jxr_string">"defaultHtmlEscape"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="41" href="#41">41</a>  		
+<a class="jxr_linenumber" name="42" href="#42">42</a>  		<em class="jxr_comment">// now the config for the Dispatcher servlet</em>
+<a class="jxr_linenumber" name="43" href="#43">43</a>  		AnnotationConfigWebApplicationContext mvcContext = <strong class="jxr_keyword">new</strong> AnnotationConfigWebApplicationContext();
+<a class="jxr_linenumber" name="44" href="#44">44</a>  		mvcContext.register(WebConfig.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="45" href="#45">45</a>  		
+<a class="jxr_linenumber" name="46" href="#46">46</a>  		<em class="jxr_comment">// Filters - http://static.springsource.org/spring/docs/3.2.x/javadoc-api/org/springframework/web/filter/package-frame.html</em>
+<a class="jxr_linenumber" name="47" href="#47">47</a>  		<em class="jxr_comment">// Hidden Http Methods</em>
+<a class="jxr_linenumber" name="48" href="#48">48</a>  <em class="jxr_comment">//		FilterRegistration.Dynamic fr = servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter());</em>
+<a class="jxr_linenumber" name="49" href="#49">49</a>  <em class="jxr_comment">//		fr.addMappingForUrlPatterns(null, true, "/*");</em>
+<a class="jxr_linenumber" name="50" href="#50">50</a>  
+<a class="jxr_linenumber" name="51" href="#51">51</a>  		<em class="jxr_comment">// UTF-8 Encoding</em>
+<a class="jxr_linenumber" name="52" href="#52">52</a>  		FilterRegistration.Dynamic fr = servletContext.addFilter(<span class="jxr_string">"encodingFilter"</span>, <strong class="jxr_keyword">new</strong> CharacterEncodingFilter());
+<a class="jxr_linenumber" name="53" href="#53">53</a>  		fr.setInitParameter(<span class="jxr_string">"encoding"</span>, <span class="jxr_string">"UTF-8"</span>);
+<a class="jxr_linenumber" name="54" href="#54">54</a>  		fr.setInitParameter(<span class="jxr_string">"forceEncoding"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="55" href="#55">55</a>  		fr.addMappingForUrlPatterns(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">true</strong>, <span class="jxr_string">"/*"</span>);
+<a class="jxr_linenumber" name="56" href="#56">56</a>  		
+<a class="jxr_linenumber" name="57" href="#57">57</a>  		<em class="jxr_comment">// SiteMesh</em>
+<a class="jxr_linenumber" name="58" href="#58">58</a>  		fr = servletContext.addFilter(<span class="jxr_string">"sitemesh"</span>, <strong class="jxr_keyword">new</strong> SiteMeshFilter());
+<a class="jxr_linenumber" name="59" href="#59">59</a>  		fr.addMappingForUrlPatterns(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">true</strong>, <span class="jxr_string">"/*"</span>);
+<a class="jxr_linenumber" name="60" href="#60">60</a>  		
+<a class="jxr_linenumber" name="61" href="#61">61</a>  		<em class="jxr_comment">// The main Spring MVC servlet</em>
+<a class="jxr_linenumber" name="62" href="#62">62</a>  		ServletRegistration.Dynamic dispatcherServlet = servletContext.addServlet(
+<a class="jxr_linenumber" name="63" href="#63">63</a>  				<span class="jxr_string">"dispatcher"</span>, <strong class="jxr_keyword">new</strong> DispatcherServlet(<strong class="jxr_keyword">new</strong> GenericWebApplicationContext()));
+<a class="jxr_linenumber" name="64" href="#64">64</a>  		dispatcherServlet.setLoadOnStartup(1);
+<a class="jxr_linenumber" name="65" href="#65">65</a>  		Set&lt;String&gt; mappingConflicts = dispatcherServlet.addMapping(<span class="jxr_string">"/"</span>);
+<a class="jxr_linenumber" name="66" href="#66">66</a>  		<strong class="jxr_keyword">if</strong> (!mappingConflicts.isEmpty()) {
+<a class="jxr_linenumber" name="67" href="#67">67</a>  			<strong class="jxr_keyword">for</strong> (String s : mappingConflicts) {
+<a class="jxr_linenumber" name="68" href="#68">68</a>  				log.error(<span class="jxr_string">"Mapping conflict: "</span> + s);
+<a class="jxr_linenumber" name="69" href="#69">69</a>  			}
+<a class="jxr_linenumber" name="70" href="#70">70</a>  			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">"'dispatcher' could not be mapped to '/' due "</span> +
+<a class="jxr_linenumber" name="71" href="#71">71</a>  					<span class="jxr_string">"to an existing mapping. This is a known issue under Tomcat versions "</span> +
+<a class="jxr_linenumber" name="72" href="#72">72</a>  					<span class="jxr_string">"&lt;= 7.0.14; see https://issues.apache.org/bugzilla/show_bug.cgi?id=51278"</span>);
+<a class="jxr_linenumber" name="73" href="#73">73</a>  		}
+<a class="jxr_linenumber" name="74" href="#74">74</a>  		
+<a class="jxr_linenumber" name="75" href="#75">75</a>  		<em class="jxr_comment">// set various application-wide variables</em>
+<a class="jxr_linenumber" name="76" href="#76">76</a>  		servletContext.setAttribute(<span class="jxr_string">"year"</span>, Calendar.getInstance().get(Calendar.YEAR));
+<a class="jxr_linenumber" name="77" href="#77">77</a>  	}
+<a class="jxr_linenumber" name="78" href="#78">78</a>  
+<a class="jxr_linenumber" name="79" href="#79">79</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

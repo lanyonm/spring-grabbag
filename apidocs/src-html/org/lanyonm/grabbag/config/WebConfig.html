@@ -14,44 +14,50 @@
 <FONT color="green">011</FONT>    import org.springframework.web.servlet.LocaleResolver;<a name="line.11"></a>
 <FONT color="green">012</FONT>    import org.springframework.web.servlet.config.annotation.EnableWebMvc;<a name="line.12"></a>
 <FONT color="green">013</FONT>    import org.springframework.web.servlet.config.annotation.InterceptorRegistry;<a name="line.13"></a>
-<FONT color="green">014</FONT>    import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;<a name="line.14"></a>
-<FONT color="green">015</FONT>    import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;<a name="line.15"></a>
-<FONT color="green">016</FONT>    import org.springframework.web.servlet.i18n.SessionLocaleResolver;<a name="line.16"></a>
-<FONT color="green">017</FONT>    <a name="line.17"></a>
-<FONT color="green">018</FONT>    /**<a name="line.18"></a>
-<FONT color="green">019</FONT>     * A config class for all the web components<a name="line.19"></a>
-<FONT color="green">020</FONT>     * <a name="line.20"></a>
-<FONT color="green">021</FONT>     * @author LanyonM<a name="line.21"></a>
-<FONT color="green">022</FONT>     */<a name="line.22"></a>
-<FONT color="green">023</FONT>    @Configuration<a name="line.23"></a>
-<FONT color="green">024</FONT>    @EnableWebMvc<a name="line.24"></a>
-<FONT color="green">025</FONT>    public class WebConfig extends WebMvcConfigurerAdapter {<a name="line.25"></a>
-<FONT color="green">026</FONT>    <a name="line.26"></a>
-<FONT color="green">027</FONT>            private static final String MESSAGE_SOURCE = "classpath:i18n/messages";<a name="line.27"></a>
-<FONT color="green">028</FONT>            private static final Logger log = LoggerFactory.getLogger(WebConfig.class);<a name="line.28"></a>
-<FONT color="green">029</FONT>    <a name="line.29"></a>
-<FONT color="green">030</FONT>            @Bean<a name="line.30"></a>
-<FONT color="green">031</FONT>            public MessageSource messageSource() {<a name="line.31"></a>
-<FONT color="green">032</FONT>                    log.debug("setting up message source");<a name="line.32"></a>
-<FONT color="green">033</FONT>                    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();<a name="line.33"></a>
-<FONT color="green">034</FONT>                    messageSource.setBasename(MESSAGE_SOURCE);<a name="line.34"></a>
-<FONT color="green">035</FONT>                    messageSource.setCacheSeconds(5);<a name="line.35"></a>
-<FONT color="green">036</FONT>                    messageSource.setDefaultEncoding("UTF-8");<a name="line.36"></a>
-<FONT color="green">037</FONT>                    return messageSource;<a name="line.37"></a>
-<FONT color="green">038</FONT>            }<a name="line.38"></a>
-<FONT color="green">039</FONT>    <a name="line.39"></a>
-<FONT color="green">040</FONT>            @Bean<a name="line.40"></a>
-<FONT color="green">041</FONT>            public LocaleResolver localeResolver() {<a name="line.41"></a>
-<FONT color="green">042</FONT>                    SessionLocaleResolver lr = new SessionLocaleResolver();<a name="line.42"></a>
-<FONT color="green">043</FONT>    //              lr.setDefaultLocale(Locale.ENGLISH);<a name="line.43"></a>
-<FONT color="green">044</FONT>                    return lr;<a name="line.44"></a>
-<FONT color="green">045</FONT>            }<a name="line.45"></a>
-<FONT color="green">046</FONT>    <a name="line.46"></a>
-<FONT color="green">047</FONT>            @Override<a name="line.47"></a>
-<FONT color="green">048</FONT>            public void addInterceptors(InterceptorRegistry registry) {<a name="line.48"></a>
-<FONT color="green">049</FONT>    //              registry.addInterceptor(new LocaleChangeInterceptor());<a name="line.49"></a>
-<FONT color="green">050</FONT>            }<a name="line.50"></a>
-<FONT color="green">051</FONT>    }<a name="line.51"></a>
+<FONT color="green">014</FONT>    import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;<a name="line.14"></a>
+<FONT color="green">015</FONT>    import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;<a name="line.15"></a>
+<FONT color="green">016</FONT>    import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;<a name="line.16"></a>
+<FONT color="green">017</FONT>    import org.springframework.web.servlet.i18n.SessionLocaleResolver;<a name="line.17"></a>
+<FONT color="green">018</FONT>    <a name="line.18"></a>
+<FONT color="green">019</FONT>    /**<a name="line.19"></a>
+<FONT color="green">020</FONT>     * A config class for all the web components<a name="line.20"></a>
+<FONT color="green">021</FONT>     * <a name="line.21"></a>
+<FONT color="green">022</FONT>     * @author LanyonM<a name="line.22"></a>
+<FONT color="green">023</FONT>     */<a name="line.23"></a>
+<FONT color="green">024</FONT>    @Configuration<a name="line.24"></a>
+<FONT color="green">025</FONT>    @EnableWebMvc<a name="line.25"></a>
+<FONT color="green">026</FONT>    public class WebConfig extends WebMvcConfigurerAdapter {<a name="line.26"></a>
+<FONT color="green">027</FONT>    <a name="line.27"></a>
+<FONT color="green">028</FONT>            private static final String MESSAGE_SOURCE = "classpath:i18n/messages";<a name="line.28"></a>
+<FONT color="green">029</FONT>            private static final Logger log = LoggerFactory.getLogger(WebConfig.class);<a name="line.29"></a>
+<FONT color="green">030</FONT>    <a name="line.30"></a>
+<FONT color="green">031</FONT>            @Override<a name="line.31"></a>
+<FONT color="green">032</FONT>            public void addResourceHandlers(ResourceHandlerRegistry registry) {<a name="line.32"></a>
+<FONT color="green">033</FONT>                    registry.addResourceHandler("/static/**").addResourceLocations("/static/");<a name="line.33"></a>
+<FONT color="green">034</FONT>            }<a name="line.34"></a>
+<FONT color="green">035</FONT>    <a name="line.35"></a>
+<FONT color="green">036</FONT>            @Bean<a name="line.36"></a>
+<FONT color="green">037</FONT>            public MessageSource messageSource() {<a name="line.37"></a>
+<FONT color="green">038</FONT>                    log.debug("setting up message source");<a name="line.38"></a>
+<FONT color="green">039</FONT>                    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();<a name="line.39"></a>
+<FONT color="green">040</FONT>                    messageSource.setBasename(MESSAGE_SOURCE);<a name="line.40"></a>
+<FONT color="green">041</FONT>                    messageSource.setCacheSeconds(5);<a name="line.41"></a>
+<FONT color="green">042</FONT>                    messageSource.setDefaultEncoding("UTF-8");<a name="line.42"></a>
+<FONT color="green">043</FONT>                    return messageSource;<a name="line.43"></a>
+<FONT color="green">044</FONT>            }<a name="line.44"></a>
+<FONT color="green">045</FONT>    <a name="line.45"></a>
+<FONT color="green">046</FONT>            @Bean<a name="line.46"></a>
+<FONT color="green">047</FONT>            public LocaleResolver localeResolver() {<a name="line.47"></a>
+<FONT color="green">048</FONT>                    SessionLocaleResolver lr = new SessionLocaleResolver();<a name="line.48"></a>
+<FONT color="green">049</FONT>                    lr.setDefaultLocale(Locale.ENGLISH);<a name="line.49"></a>
+<FONT color="green">050</FONT>                    return lr;<a name="line.50"></a>
+<FONT color="green">051</FONT>            }<a name="line.51"></a>
+<FONT color="green">052</FONT>    <a name="line.52"></a>
+<FONT color="green">053</FONT>            @Override<a name="line.53"></a>
+<FONT color="green">054</FONT>            public void addInterceptors(InterceptorRegistry registry) {<a name="line.54"></a>
+<FONT color="green">055</FONT>    //              registry.addInterceptor(new LocaleChangeInterceptor());<a name="line.55"></a>
+<FONT color="green">056</FONT>            }<a name="line.56"></a>
+<FONT color="green">057</FONT>    }<a name="line.57"></a>
 
 
 
