@@ -7,7 +7,7 @@
 <body>
 	<h1>${ recipe.id == 0 ? 'Add' : 'Edit' } Recipe</h1>
 	<c:if test="${not empty param.error}">
-		<span style="color:red;">${param.error}</span>
+		<div class="alert alert-danger">${param.error}</div>
 	</c:if>
 	<div style="float:left;width:50%;">
 		<form:form commandName="recipe">

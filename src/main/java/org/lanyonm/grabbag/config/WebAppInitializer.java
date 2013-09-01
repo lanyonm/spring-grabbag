@@ -1,5 +1,6 @@
 package org.lanyonm.grabbag.config;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.servlet.FilterRegistration;
@@ -70,6 +71,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
 					"to an existing mapping. This is a known issue under Tomcat versions " +
 					"<= 7.0.14; see https://issues.apache.org/bugzilla/show_bug.cgi?id=51278");
 		}
+		
+		// set various application-wide variables
+		servletContext.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
 	}
 
 }

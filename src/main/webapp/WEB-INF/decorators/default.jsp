@@ -14,16 +14,47 @@
 <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Michael Lanyon">
 	<title><dec:title default="spring-grabbag" /></title>
+	<link href="<%= request.getContextPath() %>/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/static/css/main.css" rel="stylesheet">
 	<dec:head />
 </head>
 <body>
-	<dec:body />
-	<footer>
-		<span class="copyright">&copy; 2012 Michael Lanyon</span>
-	</footer>
-	<div class="analytics">
-		<!-- guess what would go here... -->
+	<div id="wrap">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="<%= request.getContextPath() %>">Spring Grabbag</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="<%= request.getContextPath() %>/cookbook/">Cookbook</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="main-content">
+				<dec:body />
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div class="container">
+			<p class="text-muted credit">&copy; ${year} Michael Lanyon</p>
+		</div>
+		<script src="//code.jquery.com/jquery.js"></script>
+		<script src="<%= request.getContextPath() %>/static/js/bootstrap.min.js"></script>
+		<div class="analytics">
+			<!-- guess what would go here... -->
+		</div>
 	</div>
 </body>
 </html>

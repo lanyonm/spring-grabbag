@@ -6,10 +6,10 @@
 <body>
 	<h1>All Ingredients</h1>
 	<c:if test="${not empty param.message}">
-		<span style="color:green;">${param.message}</span>
+		<div class="alert alert-success">${param.message}</div>
 	</c:if>
 	<c:if test="${not empty param.error}">
-		<span style="color:red;">${param.error}</span>
+		<div class="alert alert-danger">${param.error}</div>
 	</c:if>
 	<ul>
 		<c:forEach items="${ingredients}" var="ingredient">

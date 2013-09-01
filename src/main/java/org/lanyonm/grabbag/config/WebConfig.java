@@ -11,6 +11,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -27,6 +28,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	private static final String MESSAGE_SOURCE = "classpath:i18n/messages";
 	private static final Logger log = LoggerFactory.getLogger(WebConfig.class);
 
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+	}
+
 	@Bean
 	public MessageSource messageSource() {
 		log.debug("setting up message source");
@@ -40,7 +46,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver lr = new SessionLocaleResolver();
-//		lr.setDefaultLocale(Locale.ENGLISH);
+		lr.setDefaultLocale(Locale.ENGLISH);
 		return lr;
 	}
 
