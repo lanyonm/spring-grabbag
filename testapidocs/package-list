@@ -1,4 +1,5 @@
 org.lanyonm.grabbag.dao
+org.lanyonm.grabbag.domain
 org.lanyonm.grabbag.persistence
 org.lanyonm.grabbag.service
 org.lanyonm.grabbag.web.controller
