@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import org.lanyonm.grabbag.config.DataConfig;
 import org.lanyonm.grabbag.config.ViewResolver;
 import org.lanyonm.grabbag.config.WebConfig;
 import org.lanyonm.grabbag.domain.Ingredient;
+import org.lanyonm.grabbag.domain.Recipe;
 import org.lanyonm.grabbag.service.CookbookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -81,6 +83,50 @@ public class CookbookControllerTest {
 				.andExpect(view().name("cookbook/recipeAddEdit"))
 				.andExpect(model().size(2))
 				.andExpect(model().attributeExists("recipe", "allIngredients"));
+	}
+
+	@Test
+	public void testRecipeEditPost() throws Exception {
+		this.mockMvc.perform(post("/cookbook/recipe/{id}/edit", Integer.MAX_VALUE))
+				.andExpect(redirectedUrl("/cookbook/?error=Something+nefarious+was+attempted."));
+		Recipe testRecipe = new Recipe();
+		testRecipe.setId(1);
+		testRecipe.setName("Pistachio Dessert");
+		this.mockMvc.perform(get("/cookbook/recipe/{id}/edit", 1))
+				.andExpect(status().isOk())
+				.andExpect(model().attribute("recipe", testRecipe));
+		this.mockMvc.perform(post("/cookbook/recipe/{id}/edit", 1).param("name", "Pistachio Dessert").param("description", "test description"))
+				.andExpect(redirectedUrl("/cookbook/"));
+
+	}
+
+	@Test
+	public void testRecipeAddDelete() throws Exception {
+		this.mockMvc.perform(post("/cookbook/recipe/{id}/edit", 0).param("name", "Test Recipe").param("description", "A recipe used during testing"))
+				.andExpect(redirectedUrl("/cookbook/"));
+		MvcResult result = this.mockMvc.perform(get("/cookbook/"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("recipes"))
+				.andReturn();
+		@SuppressWarnings("unchecked")
+		List<Recipe> recipes = (List<Recipe>) result.getModelAndView().getModel().get("recipes");
+		assertEquals("there should be three recipes", recipes.size(), 3);
+		long recipeId = recipes.get(recipes.size() -1).getId();
+		this.mockMvc.perform(get("/cookbook/recipe/{id}/delete", recipeId))
+				.andExpect(redirectedUrl("/cookbook/?message=You+successfully+deleted+Test+Recipe%21"));
+		result = this.mockMvc.perform(get("/cookbook/?message=You+successfully+deleted+Test+Recipe%21"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("recipes"))
+				.andReturn();
+		@SuppressWarnings("unchecked")
+		List<Recipe> recipes2 = (List<Recipe>) result.getModelAndView().getModel().get("recipes");
+		assertEquals("there should be two recipes", recipes2.size(), 2);
+	}
+
+	@Test
+	public void testRecipeDeleteFailure() throws Exception {
+		this.mockMvc.perform(get("/cookbook/recipe/{id}/delete", Integer.MAX_VALUE))
+				.andExpect(redirectedUrl("/cookbook/?error=There+was+an+error+deleting+the+recipe."));
 	}
 
 	@Test

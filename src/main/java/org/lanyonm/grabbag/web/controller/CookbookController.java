@@ -89,7 +89,7 @@ public class CookbookController {
 		if (cookbookService.deleteRecipe(recipe)) {
 			model.addAttribute("message", "You successfully deleted " + recipe.getName() + "!");
 		} else {
-			model.addAttribute("error", "There was an error deleteing the recipe.");
+			model.addAttribute("error", "There was an error deleting the recipe.");
 		}
 		return "redirect:/cookbook/";
 	}
