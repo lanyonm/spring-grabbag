@@ -147,16 +147,27 @@ public class CookbookControllerTest {
 				.andExpect(model().attributeExists("ingredient", "isNew"));
 				// We cannot test the jsps and therefore don't have a way to test i18n
 				// .andExpect(content().string(containsString("Nom")));
+		this.mockMvc.perform(get("/cookbook/ingredient/{id}/edit", Integer.MAX_VALUE))
+				.andExpect(redirectedUrl("/cookbook/ingredients?error=Something+nefarious+was+attempted."));
+		this.mockMvc.perform(get("/cookbook/ingredient/{id}/edit", 0))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("ingredient", "isNew"));
 	}
 
 	@Test
 	public void testIngredientEditPost() throws Exception {
 		this.mockMvc.perform(post("/cookbook/ingredient/{id}/edit", 1).param("name", "milk").param("description", "it comes from cows!"))
 				.andExpect(redirectedUrl("/cookbook/ingredients"));
+		// expect some errors
 		this.mockMvc.perform(post("/cookbook/ingredient/{id}/edit", 1).param("name", "").param("description", "it comes from cows!"))
 				.andExpect(status().isOk())
+				.andExpect(model().size(2))
 				.andExpect(model().attributeErrorCount("ingredient", 1))
-				.andExpect(model().attributeHasFieldErrors("ingredient", "name"));
+				.andExpect(model().attributeHasFieldErrors("ingredient", "name"))
+				.andExpect(model().attribute("isNew", false))
+				.andExpect(view().name("cookbook/ingredientAddEdit"));
+		this.mockMvc.perform(post("/cookbook/ingredient/{id}/edit", Integer.MAX_VALUE).param("name", "test name").param("description", "test description"))
+				.andExpect(redirectedUrl("/cookbook/ingredients?error=Something+nefarious+was+attempted."));
 	}
 
 	@Test
@@ -173,6 +184,13 @@ public class CookbookControllerTest {
 		assertTrue("ingredientId should be be a positive int", ingredientId > 0);
 		this.mockMvc.perform(get("/cookbook/ingredient/{id}/delete", ingredientId))
 				.andExpect(redirectedUrl("/cookbook/ingredients?message=You+successfully+deleted+test+ingredient%21"));
+		this.mockMvc.perform(post("/cookbook/ingredient/{id}/edit", 0).param("name", "").param("description", "this is a test ingredient"))
+				.andExpect(status().isOk())
+				.andExpect(model().size(2))
+				.andExpect(model().attributeErrorCount("ingredient", 1))
+				.andExpect(model().attributeHasFieldErrors("ingredient", "name"))
+				.andExpect(model().attribute("isNew", true))
+				.andExpect(view().name("cookbook/ingredientAddEdit"));
 	}
 
 }

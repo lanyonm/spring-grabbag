@@ -25,7 +25,6 @@ Maven will generate a site with general information, javadoc, code coverage, upd
 # TODO
 
 * example datetime command object conversion
-* Add view-layer framework
 * MyBatis transaction management
 * Expose MyBatis Cache Stats via JMX
 * Add sample JNDI configuration
