@@ -4,10 +4,10 @@
 <html>
 <head>
 	<spring:message code="ingredient.name" var="name" />
-	<title>DB</title>
+	<title>${ isNew ? 'Add Ingredient' : 'Edit ' }${ingredient.name}</title>
 </head>
 <body>
-	<h1>${ isNew ? 'Add' : 'Edit' } Ingredient</h1>
+	<h1>${ isNew ? 'Add Ingredient' : 'Edit ' }${ingredient.name}</h1>
 	<form:form commandName="ingredient">
 		<table>
 			<tr>
