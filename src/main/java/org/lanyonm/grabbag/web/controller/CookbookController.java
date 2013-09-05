@@ -1,5 +1,7 @@
 package org.lanyonm.grabbag.web.controller;
 
+import static com.codahale.metrics.MetricRegistry.name;
+
 import java.util.List;
 
 import org.lanyonm.grabbag.web.form.IngredientForm;
@@ -20,6 +22,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
+import com.codahale.metrics.annotation.Timed;
+
 @Controller
 @RequestMapping("/cookbook")
 public class CookbookController {
@@ -29,6 +35,8 @@ public class CookbookController {
 	@Autowired
 	private Validator validator;
 
+	final MetricRegistry metrics = new MetricRegistry();
+	private final Timer responses = metrics.timer(name(CookbookController.class, "responses"));
 	private static final Logger log = LoggerFactory.getLogger(CookbookController.class);
 
 	@RequestMapping("/")
@@ -38,6 +46,7 @@ public class CookbookController {
 		return "cookbook/index";
 	}
 
+	@Timed
 	@RequestMapping(value = "/recipe/{id}", method = RequestMethod.GET)
 	public String recipe(@PathVariable("id") final int id, Model model) {
 		Recipe recipe = cookbookService.getRecipe(id);
