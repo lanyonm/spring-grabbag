@@ -18,7 +18,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
  * A config class for all the web components
- * 
+ *
  * @author LanyonM
  */
 @Configuration
@@ -46,7 +46,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver lr = new SessionLocaleResolver();
-		lr.setDefaultLocale(Locale.ENGLISH);
+		// lr.setDefaultLocale(Locale.ENGLISH);
 		return lr;
 	}
 
