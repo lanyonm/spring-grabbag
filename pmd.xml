@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2013-09-01T21:11:12.135">
+<pmd version="4.3" timestamp="2013-09-15T17:08:44.558">
+<file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/config/MetricsConfig.java">
+<violation beginline="3" endline="3" begincolumn="1" endcolumn="37" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.concurrent.TimeUnit'
+</violation>
+<violation beginline="7" endline="7" begincolumn="1" endcolumn="44" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'com.codahale.metrics.ConsoleReporter'
+</violation>
+</file>
 <file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/config/WebAppInitializer.java">
 <violation beginline="18" endline="18" begincolumn="1" endcolumn="61" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'org.springframework.web.filter.HiddenHttpMethodFilter'
 </violation>
 </file>
 <file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/config/WebConfig.java">
+<violation beginline="3" endline="3" begincolumn="1" endcolumn="24" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.Locale'
+</violation>
 <violation beginline="16" endline="16" begincolumn="1" endcolumn="68" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.config" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'org.springframework.web.servlet.i18n.LocaleChangeInterceptor'
+</violation>
+</file>
+<file name="/Users/mlanyon/Desktop/spring-grabbag/src/main/java/org/lanyonm/grabbag/web/controller/CookbookController.java">
+<violation beginline="14" endline="14" begincolumn="1" endcolumn="51" rule="UnusedImports" ruleset="Import Statement Rules" package="org.lanyonm.grabbag.web.controller" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'org.lanyonm.grabbag.domain.RecipeIngredient'
 </violation>
 </file>
 </pmd>
