@@ -39,4 +39,23 @@ public class Ingredient implements Serializable {
 		this.description = description;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj == this) return true;
+		return (obj instanceof Ingredient &&
+			((Ingredient) obj).getId() == this.getId() &&
+			(this.getName() == null ? ((Ingredient) obj).getName() == null : this.getName().equals(((Ingredient) obj).getName())) &&
+			(this.getDescription() == null ? ((Ingredient) obj).getDescription() == null : this.getDescription().equals(((Ingredient) obj).getDescription())));
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Ingredient [id=").append(getId())
+			.append(", name=").append(getName())
+			.append(", description=").append(getDescription())
+			.append("]");
+		return builder.toString();
+	}
 }

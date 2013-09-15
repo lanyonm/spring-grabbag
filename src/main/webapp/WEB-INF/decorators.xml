@@ -3,6 +3,7 @@
 
 	<excludes>
 		<pattern>/defined-path</pattern>
+		<pattern>/cookbook/graph.json</pattern>
 	</excludes>
 
 	<decorator name="default" page="default.jsp">

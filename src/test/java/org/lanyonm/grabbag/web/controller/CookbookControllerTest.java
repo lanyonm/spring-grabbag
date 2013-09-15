@@ -25,6 +25,8 @@ import org.lanyonm.grabbag.config.WebConfig;
 import org.lanyonm.grabbag.domain.Ingredient;
 import org.lanyonm.grabbag.domain.Recipe;
 import org.lanyonm.grabbag.service.CookbookServiceImpl;
+import org.lanyonm.grabbag.web.controller.CookbookController.Link;
+import org.lanyonm.grabbag.web.controller.CookbookController.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -193,4 +195,30 @@ public class CookbookControllerTest {
 				.andExpect(view().name("cookbook/ingredientAddEdit"));
 	}
 
+	@Test
+	public void testVisualization() throws Exception {
+		this.mockMvc.perform(get("/cookbook/vis"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("recipes", "ingredients"))
+				.andExpect(view().name("cookbook/vis"))
+				.andReturn();
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGraphJSON() throws Exception {
+		MvcResult result = this.mockMvc.perform(get("/cookbook/graph.json"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("nodes", "links"))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andReturn();
+		List<Node> nodes = (List<Node>) result.getModelAndView().getModel().get("nodes");
+		assertEquals("first node name should be first recipe", "Pistachio Dessert", nodes.get(0).getName());
+		assertEquals("first node's group should be one", 1, nodes.get(0).getGroup());
+		List<Link> links = (List<Link>) result.getModelAndView().getModel().get("links");
+		assertEquals("first link's source should be 0", 0, links.get(0).getSource());
+		assertEquals("first link's target should be 7", 7, links.get(0).getTarget());
+		assertEquals("first link's value should be 1", 1, links.get(0).getValue());
+	}
 }
