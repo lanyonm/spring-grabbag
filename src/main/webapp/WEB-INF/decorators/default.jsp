@@ -35,7 +35,8 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="<%= request.getContextPath() %>/cookbook/">Cookbook</a></li>
+						<li <%= request.getRequestURI().contains("cookbook") ? " class=\"active\"" : "" %>><a href="<%= request.getContextPath() %>/cookbook/">Cookbook</a></li>
+						<li<%= request.getRequestURI().contains("d3") ? " class=\"active\"" : "" %>><a href="<%= request.getContextPath() %>/d3">D3 Experiment</a></li>
 					</ul>
 				</div>
 			</div>
@@ -52,6 +53,7 @@
 		</div>
 		<script src="//code.jquery.com/jquery.js"></script>
 		<script src="<%= request.getContextPath() %>/static/js/bootstrap.min.js"></script>
+		<dec:getProperty property="page.pageJS"/>
 		<div class="analytics">
 			<!-- guess what would go here... -->
 		</div>

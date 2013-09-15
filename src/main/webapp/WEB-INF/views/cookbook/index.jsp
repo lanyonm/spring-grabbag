@@ -23,3 +23,8 @@
 	</article>
 </body>
 </html>
+<content tag="pageJS">
+	<script type="text/javascript">
+		console.log('hi');
+	</script>
+</content>
