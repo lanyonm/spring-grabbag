@@ -35,8 +35,8 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li <%= request.getRequestURI().contains("cookbook") ? " class=\"active\"" : "" %>><a href="<%= request.getContextPath() %>/cookbook/">Cookbook</a></li>
-						<li<%= request.getRequestURI().contains("d3") ? " class=\"active\"" : "" %>><a href="<%= request.getContextPath() %>/d3">D3 Experiment</a></li>
+						<li <%= request.getRequestURI().contains("cookbook") && !request.getRequestURI().contains("vis") ? " class=\"active\"" : "" %>><a href="<%= request.getContextPath() %>/cookbook/">Cookbook</a></li>
+						<li<%= request.getRequestURI().contains("cookbook/vis") ? " class=\"active\"" : "" %>><a href="<%= request.getContextPath() %>/cookbook/vis">D3 Experiment</a></li>
 					</ul>
 				</div>
 			</div>
