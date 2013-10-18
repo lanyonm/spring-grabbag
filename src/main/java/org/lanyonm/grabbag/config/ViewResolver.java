@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class ViewResolver extends InternalResourceViewResolver {
 	
 	/**
-	 * Use /WEB-INF/views/ and .jsp
+	 * Use '/WEB-INF/views/' for the prefix and '.jsp' for the suffix.
 	 */
 	public ViewResolver() {
 		super();
@@ -24,8 +24,9 @@ public class ViewResolver extends InternalResourceViewResolver {
 
 	@Override
 	protected AbstractUrlBasedView buildView(String viewName) throws Exception {
-		if (viewName.isEmpty() || viewName.endsWith("/"))
+		if (viewName.isEmpty() || viewName.endsWith("/")) {
 			viewName += "index";
+		}
 		return super.buildView(viewName);
 	}
 

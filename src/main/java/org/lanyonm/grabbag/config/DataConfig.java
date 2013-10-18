@@ -13,6 +13,11 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+/**
+ * This class is used to configure all the repository connections for the app.
+ * 
+ * @author LanyonM
+ */
 @Configuration
 //@Profile({"dev", "test"})
 @MapperScan("org.lanyonm.grabbag.persistence")
