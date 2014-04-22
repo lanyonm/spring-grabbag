@@ -16,34 +16,39 @@
 <FONT color="green">013</FONT>    import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;<a name="line.13"></a>
 <FONT color="green">014</FONT>    import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;<a name="line.14"></a>
 <FONT color="green">015</FONT>    <a name="line.15"></a>
-<FONT color="green">016</FONT>    @Configuration<a name="line.16"></a>
-<FONT color="green">017</FONT>    //@Profile({"dev", "test"})<a name="line.17"></a>
-<FONT color="green">018</FONT>    @MapperScan("org.lanyonm.grabbag.persistence")<a name="line.18"></a>
-<FONT color="green">019</FONT>    public class DataConfig {<a name="line.19"></a>
-<FONT color="green">020</FONT>    <a name="line.20"></a>
-<FONT color="green">021</FONT>            @Bean<a name="line.21"></a>
-<FONT color="green">022</FONT>            public DataSource dataSource() {<a name="line.22"></a>
-<FONT color="green">023</FONT>                    return new EmbeddedDatabaseBuilder()<a name="line.23"></a>
-<FONT color="green">024</FONT>                                    .setType(EmbeddedDatabaseType.H2)<a name="line.24"></a>
-<FONT color="green">025</FONT>                                    .addScript("database/schema.sql")<a name="line.25"></a>
-<FONT color="green">026</FONT>                                    .addScript("database/init.sql")<a name="line.26"></a>
-<FONT color="green">027</FONT>                                    .build();<a name="line.27"></a>
-<FONT color="green">028</FONT>            }<a name="line.28"></a>
-<FONT color="green">029</FONT>    <a name="line.29"></a>
-<FONT color="green">030</FONT>            @Bean<a name="line.30"></a>
-<FONT color="green">031</FONT>            public DataSourceTransactionManager transactionManager() {<a name="line.31"></a>
-<FONT color="green">032</FONT>                    return new DataSourceTransactionManager(dataSource());<a name="line.32"></a>
+<FONT color="green">016</FONT>    /**<a name="line.16"></a>
+<FONT color="green">017</FONT>     * This class is used to configure all the repository connections for the app.<a name="line.17"></a>
+<FONT color="green">018</FONT>     * <a name="line.18"></a>
+<FONT color="green">019</FONT>     * @author LanyonM<a name="line.19"></a>
+<FONT color="green">020</FONT>     */<a name="line.20"></a>
+<FONT color="green">021</FONT>    @Configuration<a name="line.21"></a>
+<FONT color="green">022</FONT>    //@Profile({"dev", "test"})<a name="line.22"></a>
+<FONT color="green">023</FONT>    @MapperScan("org.lanyonm.grabbag.persistence")<a name="line.23"></a>
+<FONT color="green">024</FONT>    public class DataConfig {<a name="line.24"></a>
+<FONT color="green">025</FONT>    <a name="line.25"></a>
+<FONT color="green">026</FONT>            @Bean<a name="line.26"></a>
+<FONT color="green">027</FONT>            public DataSource dataSource() {<a name="line.27"></a>
+<FONT color="green">028</FONT>                    return new EmbeddedDatabaseBuilder()<a name="line.28"></a>
+<FONT color="green">029</FONT>                                    .setType(EmbeddedDatabaseType.H2)<a name="line.29"></a>
+<FONT color="green">030</FONT>                                    .addScript("database/schema.sql")<a name="line.30"></a>
+<FONT color="green">031</FONT>                                    .addScript("database/init.sql")<a name="line.31"></a>
+<FONT color="green">032</FONT>                                    .build();<a name="line.32"></a>
 <FONT color="green">033</FONT>            }<a name="line.33"></a>
 <FONT color="green">034</FONT>    <a name="line.34"></a>
 <FONT color="green">035</FONT>            @Bean<a name="line.35"></a>
-<FONT color="green">036</FONT>            public SqlSessionFactory sqlSessionFactory() throws Exception {<a name="line.36"></a>
-<FONT color="green">037</FONT>                    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();<a name="line.37"></a>
-<FONT color="green">038</FONT>                    sessionFactory.setDataSource(dataSource());<a name="line.38"></a>
-<FONT color="green">039</FONT>                    sessionFactory.setTypeAliasesPackage("org.lanyonm.grabbag.domain");<a name="line.39"></a>
-<FONT color="green">040</FONT>                    return sessionFactory.getObject();<a name="line.40"></a>
-<FONT color="green">041</FONT>            }<a name="line.41"></a>
-<FONT color="green">042</FONT>    <a name="line.42"></a>
-<FONT color="green">043</FONT>    }<a name="line.43"></a>
+<FONT color="green">036</FONT>            public DataSourceTransactionManager transactionManager() {<a name="line.36"></a>
+<FONT color="green">037</FONT>                    return new DataSourceTransactionManager(dataSource());<a name="line.37"></a>
+<FONT color="green">038</FONT>            }<a name="line.38"></a>
+<FONT color="green">039</FONT>    <a name="line.39"></a>
+<FONT color="green">040</FONT>            @Bean<a name="line.40"></a>
+<FONT color="green">041</FONT>            public SqlSessionFactory sqlSessionFactory() throws Exception {<a name="line.41"></a>
+<FONT color="green">042</FONT>                    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();<a name="line.42"></a>
+<FONT color="green">043</FONT>                    sessionFactory.setDataSource(dataSource());<a name="line.43"></a>
+<FONT color="green">044</FONT>                    sessionFactory.setTypeAliasesPackage("org.lanyonm.grabbag.domain");<a name="line.44"></a>
+<FONT color="green">045</FONT>                    return sessionFactory.getObject();<a name="line.45"></a>
+<FONT color="green">046</FONT>            }<a name="line.46"></a>
+<FONT color="green">047</FONT>    <a name="line.47"></a>
+<FONT color="green">048</FONT>    }<a name="line.48"></a>
 
 
 

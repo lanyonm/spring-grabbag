@@ -6,10 +6,10 @@
     <link>http://lanyonm.github.com/spring-grabbag/</link>
     <description>Spring Grabbag - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2013</copyright>
+    <copyright>&#169;2014</copyright>
     <item>
-      <title>File: 19,
-             Errors: 1134,
+      <title>File: 22,
+             Errors: 169,
              Warnings: 0,
              Infos: 0
       </title>
@@ -38,7 +38,7 @@
                   0
                 </td>
                 <td>
-                  18
+                  3
                 </td>
               </tr>
                           <tr>
@@ -52,7 +52,7 @@
                   0
                 </td>
                 <td>
-                  76
+                  10
                 </td>
               </tr>
                           <tr>
@@ -66,7 +66,7 @@
                   0
                 </td>
                 <td>
-                  78
+                  6
                 </td>
               </tr>
                           <tr>
@@ -80,7 +80,7 @@
                   0
                 </td>
                 <td>
-                  105
+                  19
                 </td>
               </tr>
                           <tr>
@@ -94,7 +94,7 @@
                   0
                 </td>
                 <td>
-                  55
+                  6
                 </td>
               </tr>
                           <tr>
@@ -108,7 +108,7 @@
                   0
                 </td>
                 <td>
-                  22
+                  2
                 </td>
               </tr>
                           <tr>
@@ -122,7 +122,7 @@
                   0
                 </td>
                 <td>
-                  22
+                  0
                 </td>
               </tr>
                           <tr>
@@ -136,7 +136,21 @@
                   0
                 </td>
                 <td>
-                  69
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://lanyonm.github.com/spring-grabbag//checkstyle.html#i18n.messages_fr.properties">i18n/messages_fr.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -150,7 +164,7 @@
                   0
                 </td>
                 <td>
-                  38
+                  6
                 </td>
               </tr>
                           <tr>
@@ -164,7 +178,7 @@
                   0
                 </td>
                 <td>
-                  40
+                  20
                 </td>
               </tr>
                           <tr>
@@ -178,7 +192,7 @@
                   0
                 </td>
                 <td>
-                  9
+                  2
                 </td>
               </tr>
                           <tr>
@@ -192,7 +206,7 @@
                   0
                 </td>
                 <td>
-                  22
+                  0
                 </td>
               </tr>
                           <tr>
@@ -206,7 +220,7 @@
                   0
                 </td>
                 <td>
-                  23
+                  12
                 </td>
               </tr>
                           <tr>
@@ -220,7 +234,35 @@
                   0
                 </td>
                 <td>
-                  36
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://lanyonm.github.com/spring-grabbag//checkstyle.html#log4j.properties">log4j.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://lanyonm.github.com/spring-grabbag//checkstyle.html#i18n.messages_en.properties">i18n/messages_en.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -234,7 +276,7 @@
                   0
                 </td>
                 <td>
-                  329
+                  28
                 </td>
               </tr>
                           <tr>
@@ -248,7 +290,7 @@
                   0
                 </td>
                 <td>
-                  45
+                  7
                 </td>
               </tr>
                           <tr>
@@ -262,7 +304,7 @@
                   0
                 </td>
                 <td>
-                  40
+                  6
                 </td>
               </tr>
                           <tr>
@@ -276,7 +318,7 @@
                   0
                 </td>
                 <td>
-                  29
+                  3
                 </td>
               </tr>
                           <tr>
@@ -290,7 +332,7 @@
                   0
                 </td>
                 <td>
-                  78
+                  15
                 </td>
               </tr>
                       </tbody>
