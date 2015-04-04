@@ -1,4 +1,4 @@
-# spring-grabbag [![Build Status](https://travis-ci.org/lanyonm/spring-grabbag.png?branch=master)](https://travis-ci.org/lanyonm/spring-grabbag) [![Coverage Status](https://coveralls.io/repos/lanyonm/spring-grabbag/badge.png)](https://coveralls.io/r/lanyonm/spring-grabbag)
+# spring-grabbag [![Build Status](https://travis-ci.org/lanyonm/spring-grabbag.png?branch=master)](https://travis-ci.org/lanyonm/spring-grabbag) [![Coverage Status](https://coveralls.io/repos/lanyonm/spring-grabbag/badge.svg)](https://coveralls.io/r/lanyonm/spring-grabbag)
 This project is meant to be a fun sampling of what you can do with Spring 3.2.  I have been a fan of Spring's Java Config since it was pre-release, and therefore this project attempts to do everything without xml config.
 
 # Running
